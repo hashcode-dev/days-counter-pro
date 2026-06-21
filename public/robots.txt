@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://daycount.pro/sitemap.xml
+Sitemap: https://daycountpro.com/sitemap.xml
