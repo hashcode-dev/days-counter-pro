@@ -9,7 +9,7 @@ function Header() {
         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
           <Calendar size={18} strokeWidth={2.5} />
         </div>
-        <span className="text-xl font-bold text-slate-900 tracking-tight">Day Count Pro</span>
+        <span className="text-xl font-bold text-slate-900 tracking-tight">Day Counter Pro</span>
       </Link>
       <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
         <Link to="/" className="text-slate-600 hover:text-slate-900 transition-colors">Home</Link>
@@ -29,7 +29,7 @@ function Hero() {
           Calculate the exact number of days between any two dates <span className="text-blue-600">instantly.</span>
         </h1>
         <p className="text-sm md:text-base text-slate-500 mb-4 max-w-2xl mx-auto">
-          Whether you're tracking a deadline, planning an event, or calculating business days, Day Count Pro provides precision you can trust.
+          Whether you're tracking a deadline, planning an event, or calculating business days, Day Counter Pro provides precision you can trust.
         </p>
       </div>
     </section>
@@ -56,14 +56,14 @@ function DayCalculator() {
     const today = new Date();
     const nextMonth = new Date(today);
     nextMonth.setDate(today.getDate() + 30);
-    
+
     const formatYMD = (date: Date) => {
-       const y = date.getFullYear();
-       const m = String(date.getMonth() + 1).padStart(2, '0');
-       const d = String(date.getDate()).padStart(2, '0');
-       return `${y}-${m}-${d}`;
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     };
-    
+
     setStart(formatYMD(today));
     setEnd(formatYMD(nextMonth));
   }, []);
@@ -72,23 +72,23 @@ function DayCalculator() {
     if (!start || !end) return;
     const startDate = new Date(start + 'T00:00:00'); // Force local interpretation
     const endDate = new Date(end + 'T00:00:00');
-    
+
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return;
-    
+
     const diffTime = endDate.getTime() - startDate.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     const total = Math.max(0, diffDays);
-    
+
     let bDays = 0;
     let cur = new Date(startDate);
-    
+
     while (cur <= endDate) {
       const day = cur.getDay();
       if (day !== 0 && day !== 6) bDays++;
       cur.setDate(cur.getDate() + 1);
     }
-    
+
     setResults({
       total: total,
       business: total > 0 ? bDays : 0,
@@ -100,7 +100,7 @@ function DayCalculator() {
   const setPreset = (preset: string) => {
     const today = new Date();
     let endDateObj = new Date();
-    
+
     if (preset === 'newyear') {
       endDateObj = new Date(today.getFullYear() + 1, 0, 1);
     } else if (preset === 'christmas') {
@@ -109,24 +109,24 @@ function DayCalculator() {
     } else if (preset === '+30days') {
       endDateObj.setDate(today.getDate() + 30);
     }
-    
+
     const formatYMD = (date: Date) => {
-       const y = date.getFullYear();
-       const m = String(date.getMonth() + 1).padStart(2, '0');
-       const d = String(date.getDate()).padStart(2, '0');
-       return `${y}-${m}-${d}`;
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     };
-    
+
     setEnd(formatYMD(endDateObj));
   };
 
   const handleReset = () => {
     const today = new Date();
     const formatYMD = (date: Date) => {
-       const y = date.getFullYear();
-       const m = String(date.getMonth() + 1).padStart(2, '0');
-       const d = String(date.getDate()).padStart(2, '0');
-       return `${y}-${m}-${d}`;
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     };
     const todayStr = formatYMD(today);
     setStart(todayStr);
@@ -183,9 +183,9 @@ function DayCalculator() {
 
           <div className="relative pt-4 relative z-10">
             <div className="flex justify-between text-[10px] font-medium text-slate-500 mb-1.5">
-              <span>{start ? new Date(start + 'T00:00:00').toLocaleDateString(undefined, {month: 'short', day: 'numeric'}) : 'Start'}</span>
+              <span>{start ? new Date(start + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'Start'}</span>
               <span>{results.total} Days</span>
-              <span>{end ? new Date(end + 'T00:00:00').toLocaleDateString(undefined, {month: 'short', day: 'numeric'}) : 'End'}</span>
+              <span>{end ? new Date(end + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'End'}</span>
             </div>
             <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden flex items-center">
               <div className="h-full bg-blue-500 transition-all duration-700 ease-out w-full" />
@@ -214,23 +214,23 @@ function Features() {
     <section className="py-8 px-8 bg-slate-50">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <FeatureItem 
-            icon={<ShieldCheck size={24} />} 
-            title="Unmatched Accuracy" 
-            desc="Our algorithms account for leap years, time zone shifts, and historic calendar changes." 
-            colorClass="text-blue-600 bg-blue-50 border-blue-200" 
+          <FeatureItem
+            icon={<ShieldCheck size={24} />}
+            title="Unmatched Accuracy"
+            desc="Our algorithms account for leap years, time zone shifts, and historic calendar changes."
+            colorClass="text-blue-600 bg-blue-50 border-blue-200"
           />
-          <FeatureItem 
-            icon={<Briefcase size={24} />} 
-            title="Business Ready" 
-            desc="Instantly exclude weekends and customizable public holidays from your duration calculations." 
-            colorClass="text-purple-600 bg-purple-50 border-purple-200" 
+          <FeatureItem
+            icon={<Briefcase size={24} />}
+            title="Business Ready"
+            desc="Instantly exclude weekends and customizable public holidays from your duration calculations."
+            colorClass="text-purple-600 bg-purple-50 border-purple-200"
           />
-          <FeatureItem 
-            icon={<Zap size={24} />} 
-            title="Instant Results" 
-            desc="Native performance ensures real-time updates as you type or pick dates. No loading states." 
-            colorClass="text-amber-600 bg-amber-50 border-amber-200" 
+          <FeatureItem
+            icon={<Zap size={24} />}
+            title="Instant Results"
+            desc="Native performance ensures real-time updates as you type or pick dates. No loading states."
+            colorClass="text-amber-600 bg-amber-50 border-amber-200"
           />
         </div>
       </div>
@@ -259,10 +259,10 @@ function TermsOfService() {
     <div className="py-16 px-8 max-w-3xl mx-auto flex-grow w-full">
       <h2 className="text-3xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">Terms of Service</h2>
       <div className="space-y-6 text-slate-600 text-base leading-relaxed">
-        <p><strong>1. Acceptance of Terms:</strong> By using Day Count Pro, you agree to these Terms of Service.</p>
-        <p><strong>2. Use License:</strong> Permission is granted to temporarily use Day Count Pro for personal or business calculations.</p>
-        <p><strong>3. Disclaimer:</strong> The materials on Day Count Pro are provided on an 'as is' basis. We make no warranties, expressed or implied.</p>
-        <p><strong>4. Limitations:</strong> In no event shall Day Count Pro be liable for any damages (including loss of data or profit) arising out of the use or inability to use the site.</p>
+        <p><strong>1. Acceptance of Terms:</strong> By using Day Counter Pro, you agree to these Terms of Service.</p>
+        <p><strong>2. Use License:</strong> Permission is granted to temporarily use Day Counter Pro for personal or business calculations.</p>
+        <p><strong>3. Disclaimer:</strong> The materials on Day Counter Pro are provided on an 'as is' basis. We make no warranties, expressed or implied.</p>
+        <p><strong>4. Limitations:</strong> In no event shall Day Counter Pro be liable for any damages (including loss of data or profit) arising out of the use or inability to use the site.</p>
         <p><strong>5. Accuracy of Materials:</strong> We strive for accuracy in calculations, but cannot guarantee that algorithms are entirely error-free for historic calendar edge-cases.</p>
         <p className="text-sm text-slate-400 pt-4">Last Updated: June 20, 2026</p>
       </div>
@@ -302,10 +302,10 @@ function Footer() {
           <div className="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-slate-500">
             <Calendar size={14} />
           </div>
-          <span className="text-sm font-bold text-slate-900">Day Count Pro</span>
+          <span className="text-sm font-bold text-slate-900">Day Counter Pro</span>
         </div>
         <p className="text-sm text-slate-500">
-          © 2026 Day Count Pro. All rights reserved.
+          © 2026 Day Counter Pro. All rights reserved.
         </p>
       </div>
     </footer>
