@@ -16,7 +16,7 @@ function Header() {
         <Link to="/about" className="text-slate-600 hover:text-slate-900 transition-colors">About Us</Link>
         <Link to="/privacy" className="text-slate-600 hover:text-slate-900 transition-colors">Privacy Policy</Link>
         <Link to="/terms" className="text-slate-600 hover:text-slate-900 transition-colors">Terms of Service</Link>
-        <Link to="/support" className="text-slate-600 hover:text-slate-900 transition-colors">Support</Link>
+        <Link to="/contact" className="text-slate-600 hover:text-slate-900 transition-colors">Contact Us</Link>
       </div>
     </header>
   );
@@ -271,10 +271,10 @@ function TermsOfService() {
   );
 }
 
-function Support() {
+function ContactUs() {
   return (
     <div className="py-16 px-8 max-w-2xl mx-auto flex-grow w-full">
-      <h2 className="text-3xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">Support</h2>
+      <h2 className="text-3xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">Contact Us</h2>
       <div className="space-y-6">
         <p className="text-slate-600 text-base">Need help or found a bug? We'd love to hear from you. Fill out the form below and our team will get back to you.</p>
         <form className="space-y-6 bg-white p-8 rounded-2xl shadow-sm border border-slate-200" onSubmit={(e) => { e.preventDefault(); alert("Thanks for reaching out! We'll get back to you soon."); }}>
@@ -382,7 +382,7 @@ export default function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/support" element={<Support />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
