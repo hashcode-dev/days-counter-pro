@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Calendar, ShieldCheck, Briefcase, Zap, Menu, X } from 'lucide-react';
+import { Calendar, ShieldCheck, Briefcase, Zap, Menu, X, AlertCircle } from 'lucide-react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function Header() {
@@ -322,6 +322,24 @@ function Home() {
   );
 }
 
+function NotFound() {
+  return (
+    <div className="py-16 px-8 max-w-md mx-auto flex-grow w-full flex flex-col justify-center items-center text-center">
+      <div className="w-16 h-16 bg-blue-50 border border-blue-200 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
+        <AlertCircle size={32} />
+      </div>
+      <h1 className="text-4xl font-extrabold text-slate-900 mb-2 tracking-tight">404</h1>
+      <h2 className="text-xl font-bold text-slate-800 mb-4">Page Not Found</h2>
+      <p className="text-slate-500 text-sm leading-relaxed mb-8">
+        We couldn't find the page you're looking for. It might have been moved, deleted, or never existed. Let's get you back on track.
+      </p>
+      <Link to="/" className="inline-flex items-center justify-center w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all shadow-sm hover:shadow border border-transparent">
+        Go Back Home
+      </Link>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -333,6 +351,7 @@ export default function App() {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/support" element={<Support />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
