@@ -1,0 +1,6 @@
+{
+  "name": "Day Count Pro",
+  "description": "Calculate the exact number of days between any two dates instantly. Professional-grade tool for tracking project timelines, financial cycles, and critical milestones.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
