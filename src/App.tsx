@@ -335,11 +335,78 @@ function Footer() {
           </div>
           <span className="text-sm font-bold text-slate-900">Day Counter Pro</span>
         </div>
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-500">
+          <Link to="/" className="hover:text-slate-900 transition-colors">Home</Link>
+          <Link to="/about" className="hover:text-slate-900 transition-colors">About Us</Link>
+          <Link to="/privacy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
+          <Link to="/terms" className="hover:text-slate-900 transition-colors">Terms of Service</Link>
+          <Link to="/contact" className="hover:text-slate-900 transition-colors">Contact Us</Link>
+        </div>
         <p className="text-sm text-slate-500">
           © 2026 Day Counter Pro. All rights reserved.
         </p>
       </div>
     </footer>
+  );
+}
+
+function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      question: "How does Day Counter Pro calculate the days between dates?",
+      answer: "Day Counter Pro uses high-precision, standard calendar algorithms to compute the exact difference between two dates. It counts every calendar day elapsed from the start date to the end date, taking into account leap years and month lengths automatically."
+    },
+    {
+      question: "What is the difference between Total Days and Business Days?",
+      answer: "Total Days counts every calendar day (Mondays through Sundays). Business Days calculates only weekdays (Mondays through Fridays), automatically excluding weekends (Saturdays and Sundays) to help you measure project deadlines and working days accurately."
+    },
+    {
+      question: "How does the tool calculate Weeks and Months?",
+      answer: "Weeks are calculated by dividing the total number of elapsed days by 7 (e.g., 14 days = 2.0 weeks). Months are calculated based on the standard average Gregorian month length of 30.44 days to give you a highly accurate representation of duration in months."
+    },
+    {
+      question: "Are my input dates and calculations saved or shared?",
+      answer: "No. Day Counter Pro values your privacy. All calculations are performed entirely client-side in your web browser. None of your date selections, calculation inputs, or results are ever sent to our servers or shared with third parties."
+    }
+  ];
+
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <section className="py-16 px-8 bg-slate-50 border-t border-slate-200">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold text-slate-900 mb-2 text-center tracking-tight">Frequently Asked Questions</h2>
+        <p className="text-slate-500 text-center text-sm mb-10 max-w-xl mx-auto">
+          Get answers to common questions about calculating date durations, business days, and how we keep your calculations private.
+        </p>
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div key={index} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm transition-all duration-200">
+              <button
+                onClick={() => toggle(index)}
+                className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-50 transition-colors focus:outline-none cursor-pointer"
+              >
+                <span className="font-bold text-slate-800 text-base">{faq.question}</span>
+                <span className={`text-slate-400 transform transition-transform duration-200 ${openIndex === index ? 'rotate-180' : ''}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </span>
+              </button>
+              <div
+                className={`transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-48 opacity-100 border-t border-slate-100' : 'max-h-0 opacity-0 pointer-events-none'}`}
+              >
+                <div className="px-6 py-5 text-slate-600 text-sm leading-relaxed">
+                  {faq.answer}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -349,6 +416,7 @@ function Home() {
       <Hero />
       <DayCalculator />
       <Features />
+      <FAQ />
     </div>
   );
 }
@@ -371,6 +439,40 @@ function NotFound() {
   );
 }
 
+function CookieBanner() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const consent = localStorage.getItem('cookie-consent');
+    if (!consent) {
+      setVisible(true);
+    }
+  }, []);
+
+  const handleAccept = () => {
+    localStorage.setItem('cookie-consent', 'accepted');
+    setVisible(false);
+  };
+
+  if (!visible) return null;
+
+  return (
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-lg rounded-2xl p-5 z-50 animate-fade-in-up">
+      <p className="text-xs text-slate-600 leading-relaxed mb-4">
+        We use cookies to personalize content and ads, analyze our traffic, and improve your experience. By clicking "Accept", you consent to our use of cookies. Read our <Link to="/privacy" className="text-blue-600 font-semibold hover:underline">Privacy Policy</Link> for more details.
+      </p>
+      <div className="flex gap-3">
+        <button onClick={handleAccept} className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors cursor-pointer text-center border border-transparent">
+          Accept
+        </button>
+        <button onClick={() => setVisible(false)} className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer text-center border border-slate-200">
+          Decline
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -387,6 +489,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <CookieBanner />
       </div>
     </BrowserRouter>
   );
