@@ -13,6 +13,7 @@ function Header() {
       </Link>
       <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
         <Link to="/" className="text-slate-600 hover:text-slate-900 transition-colors">Home</Link>
+        <Link to="/about" className="text-slate-600 hover:text-slate-900 transition-colors">About Us</Link>
         <Link to="/privacy" className="text-slate-600 hover:text-slate-900 transition-colors">Privacy Policy</Link>
         <Link to="/terms" className="text-slate-600 hover:text-slate-900 transition-colors">Terms of Service</Link>
         <Link to="/support" className="text-slate-600 hover:text-slate-900 transition-colors">Support</Link>
@@ -294,6 +295,36 @@ function Support() {
   );
 }
 
+function AboutUs() {
+  return (
+    <div className="py-16 px-8 max-w-3xl mx-auto flex-grow w-full">
+      <h2 className="text-3xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">About Us</h2>
+      <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+        <h3 className="text-xl font-bold text-slate-800 mb-4">HASH CODE TECHNOLOGIES & SOFTWARE SOLUTIONS</h3>
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          We are dedicated to building high-performance, accurate, and easy-to-use digital utility solutions like Day Counter Pro. Our mission is to simplify complex date and time calculations for users around the globe.
+        </p>
+        <div className="border-t border-slate-100 pt-6 space-y-4">
+          <div>
+            <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Company Address</h4>
+            <p className="text-slate-800 text-sm font-medium leading-relaxed">
+              62/46A/5C Nawab Yusuf Road<br />
+              Prayagraj, Uttar Pradesh<br />
+              India, PIN: 211001
+            </p>
+          </div>
+          <div>
+            <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Email Address</h4>
+            <a href="mailto:hashcode.dev@gmail.com" className="text-blue-600 hover:text-blue-700 text-sm font-semibold transition-colors">
+              hashcode.dev@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <footer className="w-full py-8 bg-white border-t border-slate-200 shrink-0">
@@ -348,6 +379,7 @@ export default function App() {
         <main className="flex-grow flex flex-col">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutUs />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/support" element={<Support />} />
