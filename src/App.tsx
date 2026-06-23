@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Calendar, ShieldCheck, Briefcase, Zap, Menu, X, AlertCircle } from 'lucide-react';
+import { Calendar, ShieldCheck, Briefcase, Zap, Menu, X, AlertCircle, Mail, Copy, Check, Info, Shield, Scale, HelpCircle, MessageSquare } from 'lucide-react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function Header() {
@@ -272,24 +272,139 @@ function TermsOfService() {
 }
 
 function ContactUs() {
+  const [copied, setCopied] = useState(false);
+  const email = "hashcode.dev@gmail.com";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <div className="py-16 px-8 max-w-2xl mx-auto flex-grow w-full">
-      <h2 className="text-3xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">Contact Us</h2>
-      <div className="space-y-6">
-        <p className="text-slate-600 text-base">Need help or found a bug? We'd love to hear from you. Fill out the form below and our team will get back to you.</p>
-        <form className="space-y-6 bg-white p-8 rounded-2xl shadow-sm border border-slate-200" onSubmit={(e) => { e.preventDefault(); alert("Thanks for reaching out! We'll get back to you soon."); }}>
-          <div className="flex flex-col gap-2 text-left">
-            <label htmlFor="email" className="text-sm font-semibold text-slate-900">Email Address</label>
-            <input type="email" id="email" required className="w-full px-4 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="you@example.com" />
+    <div className="py-16 px-6 max-w-4xl mx-auto flex-grow w-full">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Contact Us</h2>
+        <p className="text-slate-500 max-w-xl mx-auto text-sm md:text-base">
+          Have questions, feedback, or need support? Connect with our team directly.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {/* Email Card (Spans 3 cols on desktop) */}
+        <div className="md:col-span-3 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-3 relative z-10 text-center md:text-left">
+            <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md">
+              <Mail size={12} /> Contact Email
+            </div>
+            <h3 className="text-2xl font-bold">Connect With Us</h3>
+            <p className="text-blue-100 text-sm max-w-md">
+              If you need to connect with us, click the email address below to open your email client or copy it to your clipboard.
+            </p>
           </div>
-          <div className="flex flex-col gap-2 text-left">
-            <label htmlFor="message" className="text-sm font-semibold text-slate-900">Message</label>
-            <textarea id="message" required rows={5} className="w-full px-4 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none" placeholder="How can we help?"></textarea>
+          
+          <div className="flex flex-col sm:flex-row gap-3 relative z-10 w-full md:w-auto justify-center">
+            <a 
+              href={`mailto:${email}`}
+              className="flex items-center justify-center gap-2 bg-white text-blue-700 font-bold px-6 py-3.5 rounded-2xl text-sm transition-all hover:bg-blue-50 active:scale-95 shadow-lg shadow-blue-900/20"
+            >
+              <Mail size={16} />
+              {email}
+            </a>
+            <button 
+              onClick={handleCopy}
+              className="flex items-center justify-center gap-2 bg-blue-500/30 hover:bg-blue-500/40 text-white font-semibold px-6 py-3.5 rounded-2xl text-sm transition-all border border-white/20 active:scale-95 cursor-pointer whitespace-nowrap min-w-[150px]"
+            >
+              {copied ? (
+                <>
+                  <Check size={16} className="text-emerald-300" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={16} />
+                  <span>Copy Email</span>
+                </>
+              )}
+            </button>
           </div>
-          <button type="submit" className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors mt-2 text-center shadow-sm cursor-pointer border border-transparent">
-            Submit Request
-          </button>
-        </form>
+        </div>
+
+        {/* Reach Right Team */}
+        <div className="md:col-span-2 space-y-6">
+          <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <Zap size={18} className="text-blue-600 animate-pulse" />
+            How to Reach the Right Team Faster
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-3.5">
+                <HelpCircle size={20} />
+              </div>
+              <h4 className="font-bold text-slate-800 text-sm mb-1.5 font-sans">General Support</h4>
+              <p className="text-slate-500 text-xs leading-relaxed">
+                Questions about calculator usage or result exports.
+              </p>
+            </div>
+            
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-3.5">
+                <Shield size={20} />
+              </div>
+              <h4 className="font-bold text-slate-800 text-sm mb-1.5 font-sans">Privacy Requests</h4>
+              <p className="text-slate-500 text-xs leading-relaxed">
+                Data/privacy rights, policy questions, and related concerns.
+              </p>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 mb-3.5">
+                <Scale size={20} />
+              </div>
+              <h4 className="font-bold text-slate-800 text-sm mb-1.5 font-sans">Legal Requests</h4>
+              <p className="text-slate-500 text-xs leading-relaxed">
+                Terms, policy clarifications, or compliance-related communications.
+              </p>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 mb-3.5">
+                <MessageSquare size={20} />
+              </div>
+              <h4 className="font-bold text-slate-800 text-sm mb-1.5 font-sans">Product Feedback</h4>
+              <p className="text-slate-500 text-xs leading-relaxed">
+                Suggestions for features, improvements, and usability enhancements.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* What to Include */}
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-slate-900">
+              What to Include in Your Email
+            </h3>
+            <p className="text-slate-500 text-xs leading-relaxed">
+              To help us address your request as efficiently as possible, please try to include:
+            </p>
+            <ul className="space-y-3.5">
+              {[
+                "Clear subject line (for example: Support, Privacy, Legal, or Feedback).",
+                "Short description of your request.",
+                "Relevant context such as device/browser details for technical issues.",
+                "Any timeline requirements if your request is time-sensitive."
+              ].map((item, i) => (
+                <li key={i} className="flex gap-2.5 items-start">
+                  <div className="w-4 h-4 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0 mt-0.5">
+                    <Check size={10} strokeWidth={3} />
+                  </div>
+                  <span className="text-xs text-slate-650 leading-relaxed font-sans">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
