@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Calendar, ShieldCheck, Briefcase, Zap, Menu, X, AlertCircle, Mail, Copy, Check, Info, Shield, Scale, HelpCircle, MessageSquare } from 'lucide-react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { useState, useEffect, type ReactNode } from 'react';
+import { Calendar, CalendarDays, Clock, ShieldCheck, Briefcase, Zap, AlertCircle, Mail, Copy, Check, Shield, Scale, HelpCircle, MessageSquare, BookOpen, Globe, Lightbulb, TrendingUp, Plane, GraduationCap, Heart, DollarSign } from 'lucide-react';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function Header() {
   return (
@@ -198,7 +198,7 @@ function DayCalculator() {
   );
 }
 
-function FeatureItem({ icon, title, desc, colorClass }: { icon: React.ReactNode, title: string, desc: string, colorClass: string }) {
+function FeatureItem({ icon, title, desc, colorClass }: { icon: ReactNode, title: string, desc: string, colorClass: string }) {
   return (
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-center">
       <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 border ${colorClass}`}>
@@ -239,17 +239,85 @@ function Features() {
   );
 }
 
+function PolicySection({ title, children }: { title: string, children: ReactNode }) {
+  return (
+    <section className="space-y-3">
+      <h3 className="text-lg font-bold text-slate-900">{title}</h3>
+      <div className="space-y-3 text-slate-600 text-base leading-relaxed">{children}</div>
+    </section>
+  );
+}
+
 function PrivacyPolicy() {
   return (
     <div className="py-16 px-8 max-w-3xl mx-auto flex-grow w-full">
-      <h2 className="text-3xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">Privacy Policy</h2>
-      <div className="space-y-6 text-slate-600 text-base leading-relaxed">
-        <p><strong>1. Information Collection:</strong> We do not collect any personal data. All calculations are performed locally in your browser.</p>
-        <p><strong>2. Use of Information:</strong> Since we do not collect information, we do not use it for any purpose.</p>
-        <p><strong>3. Third-Party Services:</strong> We use standard web analytics to monitor site performance, which may collect anonymized IP addresses.</p>
-        <p><strong>4. Data Security:</strong> Your calculated dates and history are not synced to our servers.</p>
-        <p><strong>5. Changes to Privacy Policy:</strong> We may update this policy periodically. Please review it regularly.</p>
-        <p className="text-sm text-slate-400 pt-4">Last Updated: June 20, 2026</p>
+      <h2 className="text-3xl font-bold text-slate-900 mb-3 border-b border-slate-200 pb-4">Privacy Policy</h2>
+      <p className="text-sm text-slate-400 mb-8">Last updated: June 29, 2026</p>
+
+      <div className="space-y-8">
+        <p className="text-slate-600 text-base leading-relaxed">
+          This Privacy Policy explains how Day Counter Pro ("we", "us", or "our"), operated by Hash Code Technologies &amp; Software Solutions, collects, uses, and protects information when you visit <strong>daycounterpro.com</strong> (the "Site"). By using the Site, you agree to the practices described below.
+        </p>
+
+        <PolicySection title="1. Information We Collect">
+          <p>
+            The date calculations you perform are processed entirely within your browser. The start dates, end dates, and results you enter are <strong>never transmitted to or stored on our servers</strong>.
+          </p>
+          <p>We do, however, collect limited information automatically through third-party services:</p>
+          <ul className="list-disc pl-6 space-y-1.5">
+            <li><strong>Usage and device data</strong> — pages visited, time on site, browser type, device type, approximate location, and referring website, collected via analytics.</li>
+            <li><strong>Cookies and similar technologies</strong> — small files stored on your device to enable analytics and advertising (see Sections 3 and 4).</li>
+          </ul>
+        </PolicySection>
+
+        <PolicySection title="2. How We Use Information">
+          <p>We use the information we collect to operate and maintain the Site, understand how visitors use it, improve our features and performance, and to display relevant advertising that helps keep the tool free to use.</p>
+        </PolicySection>
+
+        <PolicySection title="3. Cookies">
+          <p>
+            Cookies are small text files placed on your device. We use them to remember your cookie-consent choice, to measure traffic and usage, and to support advertising. You can control or delete cookies through your browser settings, and you can withdraw consent at any time. Disabling cookies will not affect the core date-calculation functionality, which runs locally.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="4. Advertising &amp; Google AdSense">
+          <p>
+            We use <strong>Google AdSense</strong> to serve advertisements. Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this and other websites.
+          </p>
+          <ul className="list-disc pl-6 space-y-1.5">
+            <li>Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to this Site and/or other sites on the Internet.</li>
+            <li>Google uses the <strong>DoubleClick DART cookie</strong> and other identifiers in the course of serving ads.</li>
+            <li>You may opt out of personalized advertising by visiting <a className="text-blue-600 hover:underline" href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.</li>
+            <li>You can opt out of third-party vendor cookies at <a className="text-blue-600 hover:underline" href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">aboutads.info/choices</a> and <a className="text-blue-600 hover:underline" href="https://www.youronlinechoices.com/" target="_blank" rel="noopener noreferrer">youronlinechoices.com</a>.</li>
+          </ul>
+          <p>For more information, see <a className="text-blue-600 hover:underline" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google's Advertising Policies</a>.</p>
+        </PolicySection>
+
+        <PolicySection title="5. Google Analytics">
+          <p>
+            We use Google Analytics to understand how visitors interact with the Site. Google Analytics collects information such as pages visited and time spent, and may set cookies and process anonymized IP addresses. This data is aggregated and used only to improve the Site. Learn more in <a className="text-blue-600 hover:underline" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="6. Your Privacy Rights (GDPR &amp; CCPA)">
+          <p>
+            Depending on where you live, you may have the right to access, correct, or delete personal information we hold about you, to object to or restrict its processing, and to withdraw consent. Visitors in the European Economic Area (GDPR) and California residents (CCPA) have specific rights regarding their data, including the right to opt out of the "sale" of personal information. To exercise any of these rights, contact us using the details below.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="7. Children's Privacy">
+          <p>The Site is not directed to children under 13, and we do not knowingly collect personal information from them. If you believe a child has provided us information, please contact us so we can remove it.</p>
+        </PolicySection>
+
+        <PolicySection title="8. Changes to This Policy">
+          <p>We may update this Privacy Policy from time to time. Changes take effect when posted on this page, and we will revise the "Last updated" date accordingly. We encourage you to review it periodically.</p>
+        </PolicySection>
+
+        <PolicySection title="9. Contact Us">
+          <p>
+            If you have questions about this Privacy Policy or your data, email us at <a className="text-blue-600 hover:underline" href="mailto:hashcode.dev@gmail.com">hashcode.dev@gmail.com</a> or visit our <Link to="/contact" className="text-blue-600 hover:underline">Contact page</Link>.
+          </p>
+        </PolicySection>
       </div>
     </div>
   );
@@ -258,14 +326,45 @@ function PrivacyPolicy() {
 function TermsOfService() {
   return (
     <div className="py-16 px-8 max-w-3xl mx-auto flex-grow w-full">
-      <h2 className="text-3xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">Terms of Service</h2>
-      <div className="space-y-6 text-slate-600 text-base leading-relaxed">
-        <p><strong>1. Acceptance of Terms:</strong> By using Day Counter Pro, you agree to these Terms of Service.</p>
-        <p><strong>2. Use License:</strong> Permission is granted to temporarily use Day Counter Pro for personal or business calculations.</p>
-        <p><strong>3. Disclaimer:</strong> The materials on Day Counter Pro are provided on an 'as is' basis. We make no warranties, expressed or implied.</p>
-        <p><strong>4. Limitations:</strong> In no event shall Day Counter Pro be liable for any damages (including loss of data or profit) arising out of the use or inability to use the site.</p>
-        <p><strong>5. Accuracy of Materials:</strong> We strive for accuracy in calculations, but cannot guarantee that algorithms are entirely error-free for historic calendar edge-cases.</p>
-        <p className="text-sm text-slate-400 pt-4">Last Updated: June 20, 2026</p>
+      <h2 className="text-3xl font-bold text-slate-900 mb-3 border-b border-slate-200 pb-4">Terms of Service</h2>
+      <p className="text-sm text-slate-400 mb-8">Last updated: June 29, 2026</p>
+
+      <div className="space-y-8">
+        <p className="text-slate-600 text-base leading-relaxed">
+          These Terms of Service ("Terms") govern your access to and use of Day Counter Pro (the "Service"), operated by Hash Code Technologies &amp; Software Solutions. Please read them carefully. By accessing or using the Service, you agree to be bound by these Terms; if you do not agree, please do not use the Service.
+        </p>
+
+        <PolicySection title="1. Acceptance of Terms">
+          <p>By accessing or using Day Counter Pro, you confirm that you can form a binding contract and that you accept these Terms and our <Link to="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>. We may update these Terms from time to time, and continued use of the Service after changes are posted constitutes acceptance of the revised Terms.</p>
+        </PolicySection>
+
+        <PolicySection title="2. Use License">
+          <p>We grant you a personal, non-exclusive, non-transferable, revocable license to use Day Counter Pro for lawful personal and business date calculations. You agree not to misuse the Service, attempt to disrupt it, scrape it at scale, or use it in any way that infringes the rights of others or violates applicable law.</p>
+        </PolicySection>
+
+        <PolicySection title="3. Disclaimer of Warranties">
+          <p>The Service and all materials are provided on an "as is" and "as available" basis without warranties of any kind, whether express or implied, including but not limited to fitness for a particular purpose. We do not warrant that the Service will be uninterrupted, error-free, or available at all times.</p>
+        </PolicySection>
+
+        <PolicySection title="4. Accuracy of Calculations">
+          <p>We strive for high accuracy and our calculations follow the standard Gregorian calendar, including leap-year handling. However, results are provided for general informational purposes. You are responsible for verifying any calculation before relying on it for legal, financial, medical, or other consequential decisions.</p>
+        </PolicySection>
+
+        <PolicySection title="5. Limitation of Liability">
+          <p>To the fullest extent permitted by law, Day Counter Pro and Hash Code Technologies &amp; Software Solutions shall not be liable for any indirect, incidental, special, or consequential damages — including loss of data, revenue, or profit — arising out of your use of, or inability to use, the Service.</p>
+        </PolicySection>
+
+        <PolicySection title="6. Third-Party Services & Advertising">
+          <p>The Service displays advertising through Google AdSense and uses analytics provided by third parties. Your interactions with advertisers and any third-party links are governed by their own terms and privacy policies, for which we are not responsible. See our <Link to="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link> for details.</p>
+        </PolicySection>
+
+        <PolicySection title="7. Governing Law">
+          <p>These Terms are governed by the laws of India, without regard to conflict-of-law principles. Any disputes arising from these Terms or the Service shall be subject to the exclusive jurisdiction of the competent courts located in Prayagraj, Uttar Pradesh, India.</p>
+        </PolicySection>
+
+        <PolicySection title="8. Contact">
+          <p>Questions about these Terms can be sent to <a className="text-blue-600 hover:underline" href="mailto:hashcode.dev@gmail.com">hashcode.dev@gmail.com</a> or via our <Link to="/contact" className="text-blue-600 hover:underline">Contact page</Link>.</p>
+        </PolicySection>
       </div>
     </div>
   );
@@ -411,15 +510,58 @@ function ContactUs() {
 }
 
 function AboutUs() {
+  const values = [
+    {
+      icon: <CalendarDays size={20} />,
+      color: "text-blue-600 bg-blue-50 border-blue-200",
+      title: "Accuracy first",
+      desc: "Every result follows the standard Gregorian calendar with automatic leap-year handling, so the numbers you see are numbers you can trust.",
+    },
+    {
+      icon: <Globe size={20} />,
+      color: "text-emerald-600 bg-emerald-50 border-emerald-200",
+      title: "Built for everyone",
+      desc: "Day Counter Pro is free, requires no sign-up, and works on any modern device or browser anywhere in the world.",
+    },
+    {
+      icon: <TrendingUp size={20} />,
+      color: "text-purple-600 bg-purple-50 border-purple-200",
+      title: "Privacy by design",
+      desc: "Your dates are calculated locally in your browser and are never uploaded to our servers — speed and privacy, together.",
+    },
+  ];
+
   return (
     <div className="py-16 px-8 max-w-3xl mx-auto flex-grow w-full">
       <h2 className="text-3xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">About Us</h2>
-      <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+
+      <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
         <h3 className="text-xl font-bold text-slate-800 mb-4">HASH CODE TECHNOLOGIES & SOFTWARE SOLUTIONS</h3>
-        <p className="text-slate-600 mb-6 leading-relaxed">
-          We are dedicated to building high-performance, accurate, and easy-to-use digital utility solutions like Day Counter Pro. Our mission is to simplify complex date and time calculations for users around the globe.
-        </p>
-        <div className="border-t border-slate-100 pt-6 space-y-4">
+        <div className="space-y-4 text-slate-600 leading-relaxed">
+          <p>
+            We are dedicated to building high-performance, accurate, and easy-to-use digital utility solutions like Day Counter Pro. Our mission is to simplify complex date and time calculations for users around the globe — whether you are planning a project, managing finances, or counting down to a special event.
+          </p>
+          <p>
+            Day Counter Pro began with a simple frustration: working out the number of days between two dates by hand is slow and easy to get wrong. We set out to build a tool that gives an exact answer instantly, presents it clearly, and respects your privacy by doing all the work right inside your browser. Today the tool is used by project managers, freelancers, students, travelers, and anyone who needs a precise, dependable date duration in seconds.
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {values.map((v, i) => (
+          <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div className={`w-11 h-11 rounded-lg flex items-center justify-center mb-4 border ${v.color}`}>
+              {v.icon}
+            </div>
+            <h4 className="text-base font-bold text-slate-900 mb-2">{v.title}</h4>
+            <p className="text-sm text-slate-500 leading-relaxed">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+        <h3 className="text-base font-bold text-slate-800 mb-5">Company Information</h3>
+        <div className="space-y-4">
           <div>
             <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Company Address</h4>
             <p className="text-slate-800 text-sm font-medium leading-relaxed">
@@ -484,6 +626,26 @@ function FAQ() {
     {
       question: "Are my input dates and calculations saved or shared?",
       answer: "No. Day Counter Pro values your privacy. All calculations are performed entirely client-side in your web browser. None of your date selections, calculation inputs, or results are ever sent to our servers or shared with third parties."
+    },
+    {
+      question: "Does the day count include both the start and end date?",
+      answer: "The Total Days figure measures the number of full days that elapse between your start date and end date. For example, from June 1 to June 8 is 7 days. If you need to count both endpoints inclusively (often called 'inclusive counting'), simply add one to the total — so June 1 to June 8 would be 8 inclusive days."
+    },
+    {
+      question: "Do you account for leap years and February 29?",
+      answer: "Yes. The calculator is built on standard Gregorian calendar rules and automatically accounts for leap years, including February 29 in years divisible by four (with the standard century exceptions). You never have to adjust your dates manually."
+    },
+    {
+      question: "Can I calculate how many days until a future event?",
+      answer: "Absolutely. Set the start date to today and the end date to your target — a wedding, product launch, exam, vacation, or deadline — and you will instantly see the number of days remaining. The built-in presets for New Year and Christmas make common countdowns one click away."
+    },
+    {
+      question: "Is Day Counter Pro free to use?",
+      answer: "Yes, Day Counter Pro is completely free. The tool is supported by unobtrusive advertising, which allows us to keep every feature available to everyone at no cost, with no sign-up or subscription required."
+    },
+    {
+      question: "Does the business-days calculation exclude public holidays?",
+      answer: "The Business Days figure excludes weekends (Saturdays and Sundays) automatically. Public holidays vary widely by country and region, so they are not removed by default; if your project requires holiday adjustments, subtract the relevant holidays that fall on weekdays from the business-days total."
     }
   ];
 
@@ -507,7 +669,7 @@ function FAQ() {
               >
                 <span className="font-bold text-slate-800 text-base">{faq.question}</span>
                 <span className={`text-slate-400 transform transition-transform duration-200 ${openIndex === index ? 'rotate-180' : ''}`}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                 </span>
               </button>
               <div
@@ -525,12 +687,169 @@ function FAQ() {
   );
 }
 
+function UseCases() {
+  const cases = [
+    {
+      icon: <Briefcase size={20} />,
+      color: "text-blue-600 bg-blue-50 border-blue-200",
+      title: "Project & deadline planning",
+      desc: "Project managers count business days between a kickoff and a delivery date to build realistic schedules, track sprint lengths, and measure how many working days remain before a milestone.",
+    },
+    {
+      icon: <DollarSign size={20} />,
+      color: "text-emerald-600 bg-emerald-50 border-emerald-200",
+      title: "Finance & billing cycles",
+      desc: "Accountants and freelancers calculate invoice payment terms (Net 30, Net 60), interest accrual periods, and the exact number of days in a billing cycle to keep cash flow accurate.",
+    },
+    {
+      icon: <Plane size={20} />,
+      color: "text-purple-600 bg-purple-50 border-purple-200",
+      title: "Travel & visa stays",
+      desc: "Travelers verify the length of a trip and confirm they stay within visa limits, such as the 90-days-in-180 rule, by counting the precise number of days between entry and exit dates.",
+    },
+    {
+      icon: <GraduationCap size={20} />,
+      color: "text-amber-600 bg-amber-50 border-amber-200",
+      title: "Education & exams",
+      desc: "Students build revision timetables by counting the days until an exam, and educators measure the length of terms, assignment windows, and academic calendars.",
+    },
+    {
+      icon: <Heart size={20} />,
+      color: "text-rose-600 bg-rose-50 border-rose-200",
+      title: "Events & milestones",
+      desc: "Count down to weddings, anniversaries, birthdays, and product launches, or look back to find out exactly how long ago a memorable date occurred.",
+    },
+    {
+      icon: <Clock size={20} />,
+      color: "text-cyan-600 bg-cyan-50 border-cyan-200",
+      title: "Legal & contract terms",
+      desc: "Confirm notice periods, contract durations, warranty windows, and statutory deadlines where the exact day count carries real legal and financial weight.",
+    },
+  ];
+
+  return (
+    <section className="py-16 px-8 bg-white border-t border-slate-200">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Who uses a day counter, and why?</h2>
+          <p className="text-slate-500 text-sm max-w-2xl mx-auto">
+            Calculating the duration between two dates sounds simple, but doing it accurately by hand is error-prone. Here are the most common real-world situations where Day Counter Pro saves time and prevents costly mistakes.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {cases.map((c, i) => (
+            <div key={i} className="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+              <div className={`w-11 h-11 rounded-lg flex items-center justify-center mb-4 border ${c.color}`}>
+                {c.icon}
+              </div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">{c.title}</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">{c.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Guide() {
+  return (
+    <section className="py-16 px-8 bg-slate-50 border-t border-slate-200">
+      <article className="max-w-3xl mx-auto">
+        <div className="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wider mb-3">
+          <BookOpen size={14} /> Guide
+        </div>
+        <h2 className="text-3xl font-bold text-slate-900 mb-6 tracking-tight">How to calculate the number of days between two dates</h2>
+
+        <div className="space-y-5 text-slate-600 text-base leading-relaxed">
+          <p>
+            Working out how many days separate two dates is one of the most common everyday calculations — and one of the easiest to get wrong. Months have different lengths, leap years add a day every four years, and "counting on your fingers" across a calendar quickly breaks down once the span crosses several months. Day Counter Pro removes that friction by giving you an exact, instant answer.
+          </p>
+
+          <h3 className="text-xl font-bold text-slate-900 pt-2">The manual method</h3>
+          <p>
+            To calculate the days between two dates by hand, you count the remaining days in the start month, add the full days of every month in between, and then add the day-of-month of the end date. For a span like <strong>March 15 to July 2</strong>, that means 16 days left in March, plus April (30), May (31) and June (30), plus 2 days in July — a total of 109 days. Miss a 31-day month or forget a leap day and the answer is off.
+          </p>
+
+          <h3 className="text-xl font-bold text-slate-900 pt-2">The instant method</h3>
+          <p>
+            With Day Counter Pro you simply pick a <strong>start date</strong> and an <strong>end date</strong>. The result updates the moment you choose them — no button to press. You instantly see four figures: total calendar days, business days, weeks, and months. Use the presets (New Year, Christmas, +30 days) for one-click countdowns, or the Reset button to start again from today.
+          </p>
+
+          <h3 className="text-xl font-bold text-slate-900 pt-2">Total days vs. business days</h3>
+          <p>
+            <strong>Total days</strong> counts every calendar day, including weekends. <strong>Business days</strong> counts only Monday through Friday, which is what matters for project timelines, shipping estimates, and payment terms. The difference is significant: a 30-day span typically contains only about 22 business days, so using the wrong figure can throw a schedule off by more than a week.
+          </p>
+
+          <h3 className="text-xl font-bold text-slate-900 pt-2">Weeks and months</h3>
+          <p>
+            Weeks are the total days divided by 7. Months are trickier because they vary in length, so the calculator uses the average Gregorian month of <strong>30.44 days</strong> — that is, 365.25 days divided by 12. This gives a far more accurate duration in months than assuming every month is 30 or 31 days long, which is why the figure may show a decimal.
+          </p>
+
+          <h3 className="text-xl font-bold text-slate-900 pt-2">A note on accuracy</h3>
+          <p>
+            All calculations follow the Gregorian calendar and automatically account for leap years. Because the math runs entirely in your browser, results are instant and your dates never leave your device. For most planning, billing, and countdown purposes this is exactly the precision you need.
+          </p>
+        </div>
+      </article>
+    </section>
+  );
+}
+
+function Examples() {
+  const examples = [
+    { from: "Jan 1, 2026", to: "Dec 31, 2026", total: "364 days", note: "A full non-leap calendar year, end-exclusive." },
+    { from: "Today", to: "New Year's Day", total: "varies", note: "One-click with the New Year preset for a live countdown." },
+    { from: "Mon, Jun 1", to: "Fri, Jun 26", total: "25 days / 20 business days", note: "Four working weeks — note how weekends are stripped out." },
+    { from: "Invoice date", to: "+30 days", total: "30 days", note: "Standard Net 30 payment term using the +30 Days preset." },
+  ];
+
+  return (
+    <section className="py-16 px-8 bg-white border-t border-slate-200">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wider mb-3 justify-center">
+          <Lightbulb size={14} /> Worked examples
+        </div>
+        <h2 className="text-3xl font-bold text-slate-900 mb-2 text-center tracking-tight">Common calculations at a glance</h2>
+        <p className="text-slate-500 text-center text-sm mb-10 max-w-xl mx-auto">
+          A few typical scenarios to show how total days, business days, and presets work together.
+        </p>
+        <div className="overflow-hidden rounded-2xl border border-slate-200">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+              <tr>
+                <th className="px-5 py-3 font-semibold">From</th>
+                <th className="px-5 py-3 font-semibold">To</th>
+                <th className="px-5 py-3 font-semibold">Result</th>
+                <th className="px-5 py-3 font-semibold hidden md:table-cell">Notes</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {examples.map((e, i) => (
+                <tr key={i} className="bg-white">
+                  <td className="px-5 py-4 font-medium text-slate-900 whitespace-nowrap">{e.from}</td>
+                  <td className="px-5 py-4 font-medium text-slate-900 whitespace-nowrap">{e.to}</td>
+                  <td className="px-5 py-4 text-blue-600 font-semibold whitespace-nowrap">{e.total}</td>
+                  <td className="px-5 py-4 text-slate-500 hidden md:table-cell">{e.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Home() {
   return (
     <div className="w-full">
       <Hero />
       <DayCalculator />
       <Features />
+      <UseCases />
+      <Guide />
+      <Examples />
       <FAQ />
     </div>
   );
@@ -588,25 +907,61 @@ function CookieBanner() {
   );
 }
 
-export default function App() {
+// Route metadata — consumed by the prerender script to emit one static HTML
+// file per route with unique <title> and meta description for SEO/crawlers.
+export const routes = [
+  {
+    path: '/',
+    title: 'Day Counter Pro - Calculate Days Between Dates Instantly',
+    description:
+      'Calculate the exact number of days, business days, weeks, and months between any two dates instantly. The most accurate free date duration calculator online.',
+  },
+  {
+    path: '/about',
+    title: 'About Us - Day Counter Pro',
+    description:
+      'Learn about Hash Code Technologies & Software Solutions, the team behind Day Counter Pro, our mission, and how to reach us.',
+  },
+  {
+    path: '/privacy',
+    title: 'Privacy Policy - Day Counter Pro',
+    description:
+      'How Day Counter Pro handles data, cookies, Google AdSense and Google Analytics, and your privacy choices under GDPR and CCPA.',
+  },
+  {
+    path: '/terms',
+    title: 'Terms of Service - Day Counter Pro',
+    description:
+      'The terms and conditions governing your use of Day Counter Pro, including acceptable use, disclaimers, and limitations of liability.',
+  },
+  {
+    path: '/contact',
+    title: 'Contact Us - Day Counter Pro',
+    description:
+      'Get in touch with the Day Counter Pro team for support, privacy requests, legal questions, or product feedback.',
+  },
+];
+
+// Router-agnostic application shell. Wrapped in <BrowserRouter> on the client
+// (entry-client) and <StaticRouter> on the server (entry-server) so the same
+// markup can be hydrated after being pre-rendered to static HTML.
+export function AppShell() {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-900">
-        <Header />
-        <main className="flex-grow flex flex-col">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-        <CookieBanner />
-      </div>
-    </BrowserRouter>
+    <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-900">
+      <Header />
+      <main className="flex-grow flex flex-col">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+      <CookieBanner />
+    </div>
   );
 }
 
