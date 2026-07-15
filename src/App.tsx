@@ -1,5 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import { Calendar, CalendarDays, Clock, ShieldCheck, Briefcase, Zap, AlertCircle, Mail, Copy, Check, Shield, Scale, HelpCircle, MessageSquare, BookOpen, Globe, Lightbulb, TrendingUp, Plane, GraduationCap, Heart, DollarSign } from 'lucide-react';
+import { Calendar, CalendarDays, Clock, ShieldCheck, Briefcase, Zap, AlertCircle, Mail, Copy, Check, Shield, Scale, HelpCircle, MessageSquare, BookOpen, Globe, Lightbulb, TrendingUp, Plane, GraduationCap, Heart, DollarSign, Gift, PartyPopper, Ghost, Sparkles, Sun, Egg, Cake } from 'lucide-react';
 import { Routes, Route, Link } from 'react-router-dom';
 
 function Header() {
@@ -27,10 +27,10 @@ function Hero() {
     <section className="pt-12 pb-8 px-8 relative overflow-hidden bg-slate-50">
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3 tracking-tight">
-          Calculate the exact number of days between any two dates <span className="text-blue-600">instantly.</span>
+          Days Between Dates Calculator — <span className="text-blue-600">How Many Days Between Two Dates?</span>
         </h1>
         <p className="text-sm md:text-base text-slate-500 mb-4 max-w-2xl mx-auto">
-          Whether you're tracking a deadline, planning an event, or calculating business days, Day Counter Pro provides precision you can trust.
+          Free online day counter to find the exact number of days, business days, weeks, and months between any two dates. Count days until Christmas, New Year, your birthday, or any future deadline — instantly and accurately.
         </p>
       </div>
     </section>
@@ -646,6 +646,26 @@ function FAQ() {
     {
       question: "Does the business-days calculation exclude public holidays?",
       answer: "The Business Days figure excludes weekends (Saturdays and Sundays) automatically. Public holidays vary widely by country and region, so they are not removed by default; if your project requires holiday adjustments, subtract the relevant holidays that fall on weekdays from the business-days total."
+    },
+    {
+      question: "How do I calculate how many days ago a date was?",
+      answer: "To find out how many days ago a past event occurred, set the earlier date as your Start Date and today's date as the End Date. The Total Days figure is the exact number of days that have elapsed since that day — perfect for anniversaries, milestones, or looking back at a birthday."
+    },
+    {
+      question: "How do I add days to a date to find a future date?",
+      answer: "Set your Start Date to today (or any base date) and adjust the End Date until the Total Days matches the number you want to add. For common cases like Net 30 invoicing, use the +30 Days preset to jump forward 30 days in a single click."
+    },
+    {
+      question: "How many days are there in a year?",
+      answer: "A common year has 365 days. A leap year has 366 days because February contains 29 days instead of 28. Leap years occur every four years, with the Gregorian rule that century years (like 1900) are not leap years unless divisible by 400 (like 2000)."
+    },
+    {
+      question: "How do I calculate Net 30, Net 60, or Net 90 payment terms?",
+      answer: "Set the Start Date to the invoice date and use the End Date to represent the due date. For Net 30, click the +30 Days preset. For Net 60 or Net 90, manually set the end date 60 or 90 days ahead — the tool will confirm the exact due date and let you see how many business days fall within the term."
+    },
+    {
+      question: "Can I count how many weeks or months between two dates?",
+      answer: "Yes. In addition to Total Days and Business Days, Day Counter Pro shows the number of weeks (total days divided by 7) and months (total days divided by the average Gregorian month of 30.44 days) between your two chosen dates."
     }
   ];
 
@@ -673,12 +693,205 @@ function FAQ() {
                 </span>
               </button>
               <div
-                className={`transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-48 opacity-100 border-t border-slate-100' : 'max-h-0 opacity-0 pointer-events-none'}`}
+                className={`transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-96 opacity-100 border-t border-slate-100' : 'max-h-0 opacity-0 pointer-events-none'}`}
               >
                 <div className="px-6 py-5 text-slate-600 text-sm leading-relaxed">
                   {faq.answer}
                 </div>
               </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type CountdownEvent = {
+  icon: ReactNode;
+  color: string;
+  label: string;
+  compute: (today: Date) => Date | null;
+  fallback: string;
+};
+
+const COUNTDOWN_EVENTS: CountdownEvent[] = [
+  {
+    icon: <Gift size={18} />,
+    color: "text-rose-600 bg-rose-50 border-rose-200",
+    label: "Days until Christmas",
+    compute: (today) => {
+      const y = today.getFullYear();
+      const d = new Date(y, 11, 25);
+      return d < today ? new Date(y + 1, 11, 25) : d;
+    },
+    fallback: "December 25",
+  },
+  {
+    icon: <PartyPopper size={18} />,
+    color: "text-blue-600 bg-blue-50 border-blue-200",
+    label: "Days until New Year",
+    compute: (today) => new Date(today.getFullYear() + 1, 0, 1),
+    fallback: "January 1",
+  },
+  {
+    icon: <Ghost size={18} />,
+    color: "text-orange-600 bg-orange-50 border-orange-200",
+    label: "Days until Halloween",
+    compute: (today) => {
+      const y = today.getFullYear();
+      const d = new Date(y, 9, 31);
+      return d < today ? new Date(y + 1, 9, 31) : d;
+    },
+    fallback: "October 31",
+  },
+  {
+    icon: <Sparkles size={18} />,
+    color: "text-pink-600 bg-pink-50 border-pink-200",
+    label: "Days until Valentine's Day",
+    compute: (today) => {
+      const y = today.getFullYear();
+      const d = new Date(y, 1, 14);
+      return d < today ? new Date(y + 1, 1, 14) : d;
+    },
+    fallback: "February 14",
+  },
+  {
+    icon: <CalendarDays size={18} />,
+    color: "text-amber-600 bg-amber-50 border-amber-200",
+    label: "Days until Thanksgiving",
+    compute: (today) => {
+      const thanksgivingFor = (y: number) => {
+        const nov1 = new Date(y, 10, 1);
+        const firstThu = 1 + ((4 - nov1.getDay() + 7) % 7);
+        return new Date(y, 10, firstThu + 21);
+      };
+      let d = thanksgivingFor(today.getFullYear());
+      if (d < today) d = thanksgivingFor(today.getFullYear() + 1);
+      return d;
+    },
+    fallback: "Fourth Thursday of November",
+  },
+  {
+    icon: <Egg size={18} />,
+    color: "text-purple-600 bg-purple-50 border-purple-200",
+    label: "Days until Easter",
+    compute: (today) => {
+      const computeEaster = (y: number) => {
+        const a = y % 19, b = Math.floor(y / 100), c = y % 100;
+        const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+        const g = Math.floor((b - f + 1) / 3);
+        const h = (19 * a + b - d - g + 15) % 30;
+        const i = Math.floor(c / 4), k = c % 4;
+        const l = (32 + 2 * e + 2 * i - h - k) % 7;
+        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+        const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
+        const day = ((h + l - 7 * m + 114) % 31) + 1;
+        return new Date(y, month, day);
+      };
+      let e = computeEaster(today.getFullYear());
+      if (e < today) e = computeEaster(today.getFullYear() + 1);
+      return e;
+    },
+    fallback: "Sunday after the Paschal full moon",
+  },
+  {
+    icon: <Sun size={18} />,
+    color: "text-yellow-600 bg-yellow-50 border-yellow-200",
+    label: "Days until Summer",
+    compute: (today) => {
+      const y = today.getFullYear();
+      const d = new Date(y, 5, 21);
+      return d < today ? new Date(y + 1, 5, 21) : d;
+    },
+    fallback: "June 21 (June solstice)",
+  },
+  {
+    icon: <Cake size={18} />,
+    color: "text-emerald-600 bg-emerald-50 border-emerald-200",
+    label: "Days until next birthday",
+    compute: () => null,
+    fallback: "Enter your birthday above",
+  },
+];
+
+function PopularCountdowns() {
+  const [today, setToday] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setToday(new Date());
+  }, []);
+
+  const daysUntil = (target: Date) => {
+    if (!today) return null;
+    const t = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const d = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+    return Math.max(0, Math.round((d.getTime() - t.getTime()) / (1000 * 60 * 60 * 24)));
+  };
+
+  return (
+    <section className="py-16 px-8 bg-white border-t border-slate-200">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Popular countdowns — how many days until…</h2>
+          <p className="text-slate-500 text-sm max-w-2xl mx-auto">
+            Quick answers to the most searched date countdowns. Live counts update automatically, or pick any custom event using the calculator above.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {COUNTDOWN_EVENTS.map((e, i) => {
+            const target = today ? e.compute(today) : null;
+            const n = target ? daysUntil(target) : null;
+            return (
+              <div key={i} className="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col items-start">
+                <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-3 border ${e.color}`}>
+                  {e.icon}
+                </div>
+                <h3 className="text-sm font-bold text-slate-800 mb-1 leading-snug">{e.label}</h3>
+                <p className="text-2xl font-bold text-blue-600">
+                  {n !== null ? `${n} days` : '—'}
+                </p>
+                <p className="text-xs text-slate-500 mt-1">
+                  {target
+                    ? `Until ${target.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`
+                    : e.fallback}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function QuickReference() {
+  const facts = [
+    { label: "Days in a year", value: "365", note: "366 in a leap year" },
+    { label: "Weekdays in a year", value: "~261", note: "Approx. 104 weekend days" },
+    { label: "Days in a month", value: "28–31", note: "Average 30.44 days" },
+    { label: "Weeks in a year", value: "52.14", note: "52 weeks + 1 or 2 days" },
+    { label: "Days in a week", value: "7", note: "5 business days" },
+    { label: "Days in a decade", value: "3,652", note: "With leap years" },
+    { label: "Days in Q1 (Jan–Mar)", value: "90 or 91", note: "91 in a leap year" },
+    { label: "Business days in a month", value: "~22", note: "Mon–Fri only" },
+  ];
+
+  return (
+    <section className="py-16 px-8 bg-slate-50 border-t border-slate-200">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Quick reference: days in a year, month, and week</h2>
+          <p className="text-slate-500 text-sm max-w-2xl mx-auto">
+            Handy facts to sanity-check any date calculation at a glance.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {facts.map((f, i) => (
+            <div key={i} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+              <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">{f.label}</p>
+              <p className="text-2xl font-bold text-slate-900 mb-1">{f.value}</p>
+              <p className="text-xs text-slate-500">{f.note}</p>
             </div>
           ))}
         </div>
@@ -846,8 +1059,10 @@ function Home() {
     <div className="w-full">
       <Hero />
       <DayCalculator />
+      <PopularCountdowns />
       <Features />
       <UseCases />
+      <QuickReference />
       <Guide />
       <Examples />
       <FAQ />
@@ -912,33 +1127,33 @@ function CookieBanner() {
 export const routes = [
   {
     path: '/',
-    title: 'Day Counter Pro - Calculate Days Between Dates Instantly',
+    title: 'Days Between Dates Calculator - How Many Days Between Two Dates | Day Counter Pro',
     description:
-      'Calculate the exact number of days, business days, weeks, and months between any two dates instantly. The most accurate free date duration calculator online.',
+      'Free days between dates calculator. Find out how many days, business days, weeks, and months between two dates. Count days until Christmas, New Year, birthdays, or any future date.',
   },
   {
     path: '/about',
-    title: 'About Us - Day Counter Pro',
+    title: 'About Day Counter Pro - The Team Behind the Date Calculator',
     description:
-      'Learn about Hash Code Technologies & Software Solutions, the team behind Day Counter Pro, our mission, and how to reach us.',
+      'Learn about Hash Code Technologies & Software Solutions, the team behind Day Counter Pro — the free, accurate, privacy-first date duration calculator used worldwide.',
   },
   {
     path: '/privacy',
-    title: 'Privacy Policy - Day Counter Pro',
+    title: 'Privacy Policy - Day Counter Pro Date Calculator',
     description:
-      'How Day Counter Pro handles data, cookies, Google AdSense and Google Analytics, and your privacy choices under GDPR and CCPA.',
+      'How Day Counter Pro handles your data, cookies, Google AdSense and Google Analytics, and your privacy choices under GDPR and CCPA. All calculations happen locally in your browser.',
   },
   {
     path: '/terms',
     title: 'Terms of Service - Day Counter Pro',
     description:
-      'The terms and conditions governing your use of Day Counter Pro, including acceptable use, disclaimers, and limitations of liability.',
+      'The terms and conditions governing your use of Day Counter Pro — the free online days between dates calculator. Acceptable use, disclaimers, and limitations of liability.',
   },
   {
     path: '/contact',
-    title: 'Contact Us - Day Counter Pro',
+    title: 'Contact Day Counter Pro - Support, Feedback & Privacy Requests',
     description:
-      'Get in touch with the Day Counter Pro team for support, privacy requests, legal questions, or product feedback.',
+      'Get in touch with the Day Counter Pro team for support with the days between dates calculator, privacy requests, legal questions, or product feedback.',
   },
 ];
 
