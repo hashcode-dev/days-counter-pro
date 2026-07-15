@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+.claude
+assets
+_update-notifier-last-checked
