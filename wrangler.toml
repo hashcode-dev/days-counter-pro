@@ -1,0 +1,10 @@
+name = "days-counter-pro"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+
+[env.production]
+name = "days-counter-pro-prod"
+routes = [{ pattern = "daycounterpro.com", zone_name = "daycounterpro.com" }]
