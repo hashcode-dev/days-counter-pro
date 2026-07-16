@@ -32,12 +32,12 @@ function Header() {
         </div>
         <span className="text-xl font-bold text-slate-900 tracking-tight">Day Counter Pro</span>
       </Link>
-      <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
-        <Link to="/" className="text-slate-600 hover:text-slate-900 transition-colors">Home</Link>
-        <Link to="/about" className="text-slate-600 hover:text-slate-900 transition-colors">About Us</Link>
-        <Link to="/privacy" className="text-slate-600 hover:text-slate-900 transition-colors">Privacy Policy</Link>
-        <Link to="/terms" className="text-slate-600 hover:text-slate-900 transition-colors">Terms of Service</Link>
-        <Link to="/contact" className="text-slate-600 hover:text-slate-900 transition-colors">Contact Us</Link>
+      <div className="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <Link to="/" className="text-slate-600 hover:text-slate-900 transition-colors">Days Calculator</Link>
+        <a href="#calculator" className="text-slate-600 hover:text-slate-900 transition-colors">Date Calculator</a>
+        <Link to="/about" className="text-slate-600 hover:text-slate-900 transition-colors">About</Link>
+        <Link to="/contact" className="text-slate-600 hover:text-slate-900 transition-colors">Contact</Link>
+        <Link to="/privacy" className="text-slate-600 hover:text-slate-900 transition-colors">Privacy</Link>
       </div>
     </header>
   );
@@ -611,24 +611,51 @@ function AboutUs() {
 
 function Footer() {
   return (
-    <footer className="w-full py-8 bg-white border-t border-slate-200 shrink-0">
+    <footer className="w-full py-12 bg-slate-900 border-t border-slate-800 shrink-0">
       <div className="px-8 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-slate-500">
-              <Calendar size={14} />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                <Calendar size={16} />
+              </div>
+              <span className="text-sm font-bold text-white">Day Counter Pro</span>
             </div>
-            <span className="text-sm font-bold text-slate-900">Day Counter Pro</span>
+            <p className="text-xs text-slate-400 leading-relaxed">The free, accurate, and privacy-first days between dates calculator. Count business days, weeks, months, and more.</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-500">
-            <Link to="/" className="hover:text-slate-900 transition-colors">Home</Link>
-            <Link to="/about" className="hover:text-slate-900 transition-colors">About Us</Link>
-            <Link to="/privacy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-slate-900 transition-colors">Terms of Service</Link>
-            <Link to="/contact" className="hover:text-slate-900 transition-colors">Contact Us</Link>
+
+          <div>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-3">Tools</h4>
+            <div className="space-y-2 text-xs">
+              <a href="#calculator" className="text-slate-400 hover:text-white transition-colors">Days Between Dates</a>
+              <a href="#calculator" className="text-slate-400 hover:text-white transition-colors">Business Days Calculator</a>
+              <a href="#calculator" className="text-slate-400 hover:text-white transition-colors">Date Duration Calculator</a>
+              <a href="#calculator" className="text-slate-400 hover:text-white transition-colors">Countdown Calculator</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-3">Company</h4>
+            <div className="space-y-2 text-xs">
+              <Link to="/about" className="text-slate-400 hover:text-white transition-colors">About Us</Link>
+              <Link to="/contact" className="text-slate-400 hover:text-white transition-colors">Contact</Link>
+              <Link to="/privacy" className="text-slate-400 hover:text-white transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="text-slate-400 hover:text-white transition-colors">Terms of Service</Link>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-3">Quick Links</h4>
+            <div className="space-y-2 text-xs">
+              <a href="#" className="text-slate-400 hover:text-white transition-colors">How It Works</a>
+              <a href="#calculator" className="text-slate-400 hover:text-white transition-colors">Start Calculator</a>
+              <a href="#faq" className="text-slate-400 hover:text-white transition-colors">FAQ</a>
+              <a href="#" className="text-slate-400 hover:text-white transition-colors">Sitemap</a>
+            </div>
           </div>
         </div>
-        <div className="border-t border-slate-100 pt-6 text-center text-xs text-slate-500">
+
+        <div className="border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
           <p className="mb-2">© 2026 Day Counter Pro. All rights reserved. | Operated by Hash Code Technologies & Software Solutions</p>
           <p>Day Counter Pro features 100% original content and code. No content is republished or reused from other sources.</p>
         </div>
@@ -1084,6 +1111,41 @@ function Examples() {
   );
 }
 
+function RelatedCalculators() {
+  const calculators = [
+    { title: "Age Calculator", desc: "Calculate your exact age in years, months, and days", icon: <Calendar size={20} /> },
+    { title: "Time Calculator", desc: "Add or subtract hours, minutes, and seconds between times", icon: <Clock size={20} /> },
+    { title: "Pregnancy Calculator", desc: "Estimate due dates and track pregnancy progress by week", icon: <Heart size={20} /> },
+    { title: "Business Days Counter", desc: "Count working days excluding weekends and holidays", icon: <Briefcase size={20} /> },
+    { title: "Countdown Calculator", desc: "Track days remaining until any special date or event", icon: <PartyPopper size={20} /> },
+    { title: "Date Duration Calculator", desc: "Find the exact duration between any two dates", icon: <CalendarDays size={20} /> },
+  ];
+
+  return (
+    <section className="py-16 px-8 bg-white border-t border-slate-200">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Related Calculators & Tools</h2>
+          <p className="text-slate-500 text-sm max-w-2xl mx-auto">
+            Explore other useful date and time calculation tools to extend your productivity and planning capabilities.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {calculators.map((calc, i) => (
+            <div key={i} className="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition-all cursor-pointer group">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 bg-white text-blue-600 group-hover:bg-blue-100 transition-colors border border-slate-200">
+                {calc.icon}
+              </div>
+              <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{calc.title}</h3>
+              <p className="text-sm text-slate-500 group-hover:text-slate-600 transition-colors">{calc.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Home() {
   return (
     <div className="w-full">
@@ -1105,6 +1167,7 @@ function Home() {
         </div>
       </section>
       <Examples />
+      <RelatedCalculators />
       <FAQ />
       <section className="py-8 px-8 bg-slate-50 border-t border-slate-200">
         <div className="max-w-4xl mx-auto">
