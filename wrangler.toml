@@ -1,9 +1,9 @@
 name = "days-counter-pro"
-type = "javascript"
-account_id = ""
-workers_dev = true
-route = ""
-zone_id = ""
+pages_build_output_dir = "dist"
+
+[build]
+command = "npm run build"
+cwd = "."
 
 [env.production]
 name = "days-counter-pro-prod"
