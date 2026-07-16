@@ -1,6 +1,27 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import { Calendar, CalendarDays, Clock, ShieldCheck, Briefcase, Zap, AlertCircle, Mail, Copy, Check, Shield, Scale, HelpCircle, MessageSquare, BookOpen, Globe, Lightbulb, TrendingUp, Plane, GraduationCap, Heart, DollarSign, Gift, PartyPopper, Ghost, Sparkles, Sun, Egg, Cake } from 'lucide-react';
+import { Calendar, CalendarDays, Clock, ShieldCheck, Briefcase, Zap, AlertCircle, Mail, Copy, Check, Shield, Scale, HelpCircle, MessageSquare, BookOpen, Globe, Lightbulb, TrendingUp, Plane, GraduationCap, Heart, DollarSign, Gift, PartyPopper, Ghost, Sparkles, Sun, Egg, Cake, X } from 'lucide-react';
 import { Routes, Route, Link } from 'react-router-dom';
+
+function AdUnit({ slotId }: { slotId: string }) {
+  useEffect(() => {
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+    } catch (e) {
+      console.error('AdSense error:', e);
+    }
+  }, [slotId]);
+
+  return (
+    <ins
+      className="adsbygoogle"
+      style={{ display: 'block' }}
+      data-ad-client="ca-pub-7780773897047696"
+      data-ad-slot={slotId}
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    />
+  );
+}
 
 function Header() {
   return (
@@ -252,7 +273,7 @@ function PrivacyPolicy() {
   return (
     <div className="py-16 px-8 max-w-3xl mx-auto flex-grow w-full">
       <h2 className="text-3xl font-bold text-slate-900 mb-3 border-b border-slate-200 pb-4">Privacy Policy</h2>
-      <p className="text-sm text-slate-400 mb-8">Last updated: June 29, 2026</p>
+      <p className="text-sm text-slate-400 mb-8">Last updated: July 17, 2026</p>
 
       <div className="space-y-8">
         <p className="text-slate-600 text-base leading-relaxed">
@@ -327,7 +348,7 @@ function TermsOfService() {
   return (
     <div className="py-16 px-8 max-w-3xl mx-auto flex-grow w-full">
       <h2 className="text-3xl font-bold text-slate-900 mb-3 border-b border-slate-200 pb-4">Terms of Service</h2>
-      <p className="text-sm text-slate-400 mb-8">Last updated: June 29, 2026</p>
+      <p className="text-sm text-slate-400 mb-8">Last updated: July 17, 2026</p>
 
       <div className="space-y-8">
         <p className="text-slate-600 text-base leading-relaxed">
@@ -576,6 +597,12 @@ function AboutUs() {
               hashcode.dev@gmail.com
             </a>
           </div>
+          <div>
+            <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Original Content</h4>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              Day Counter Pro features 100% original content, code, and design created by Hash Code Technologies & Software Solutions. All date calculation algorithms, user interface design, and educational content are proprietary and unique to this platform. We do not republish or reuse content from other sources.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -585,23 +612,26 @@ function AboutUs() {
 function Footer() {
   return (
     <footer className="w-full py-8 bg-white border-t border-slate-200 shrink-0">
-      <div className="flex flex-col md:flex-row justify-between items-center px-8 max-w-6xl mx-auto gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-slate-500">
-            <Calendar size={14} />
+      <div className="px-8 max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-slate-500">
+              <Calendar size={14} />
+            </div>
+            <span className="text-sm font-bold text-slate-900">Day Counter Pro</span>
           </div>
-          <span className="text-sm font-bold text-slate-900">Day Counter Pro</span>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-500">
+            <Link to="/" className="hover:text-slate-900 transition-colors">Home</Link>
+            <Link to="/about" className="hover:text-slate-900 transition-colors">About Us</Link>
+            <Link to="/privacy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-slate-900 transition-colors">Terms of Service</Link>
+            <Link to="/contact" className="hover:text-slate-900 transition-colors">Contact Us</Link>
+          </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-500">
-          <Link to="/" className="hover:text-slate-900 transition-colors">Home</Link>
-          <Link to="/about" className="hover:text-slate-900 transition-colors">About Us</Link>
-          <Link to="/privacy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
-          <Link to="/terms" className="hover:text-slate-900 transition-colors">Terms of Service</Link>
-          <Link to="/contact" className="hover:text-slate-900 transition-colors">Contact Us</Link>
+        <div className="border-t border-slate-100 pt-6 text-center text-xs text-slate-500">
+          <p className="mb-2">© 2026 Day Counter Pro. All rights reserved. | Operated by Hash Code Technologies & Software Solutions</p>
+          <p>Day Counter Pro features 100% original content and code. No content is republished or reused from other sources.</p>
         </div>
-        <p className="text-sm text-slate-500">
-          © 2026 Day Counter Pro. All rights reserved.
-        </p>
       </div>
     </footer>
   );
@@ -1061,11 +1091,26 @@ function Home() {
       <DayCalculator />
       <PopularCountdowns />
       <Features />
+      <section className="py-8 px-8 bg-white border-t border-slate-200">
+        <div className="max-w-4xl mx-auto">
+          <AdUnit slotId="9876543210" />
+        </div>
+      </section>
       <UseCases />
       <QuickReference />
       <Guide />
+      <section className="py-8 px-8 bg-white border-t border-slate-200">
+        <div className="max-w-4xl mx-auto">
+          <AdUnit slotId="1234567890" />
+        </div>
+      </section>
       <Examples />
       <FAQ />
+      <section className="py-8 px-8 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-4xl mx-auto">
+          <AdUnit slotId="5555555555" />
+        </div>
+      </section>
     </div>
   );
 }
@@ -1103,18 +1148,29 @@ function CookieBanner() {
     setVisible(false);
   };
 
+  const handleDecline = () => {
+    localStorage.setItem('cookie-consent', 'declined');
+    setVisible(false);
+  };
+
   if (!visible) return null;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-lg rounded-2xl p-5 z-50 animate-fade-in-up">
+      <div className="flex justify-between items-start gap-3 mb-3">
+        <h3 className="text-sm font-bold text-slate-900">Cookie Settings</h3>
+        <button onClick={() => setVisible(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer" aria-label="Close">
+          <X size={16} />
+        </button>
+      </div>
       <p className="text-xs text-slate-600 leading-relaxed mb-4">
-        We use cookies to personalize content and ads, analyze our traffic, and improve your experience. By clicking "Accept", you consent to our use of cookies. Read our <Link to="/privacy" className="text-blue-600 font-semibold hover:underline">Privacy Policy</Link> for more details.
+        We use cookies to personalize content and ads, analyze our traffic, and improve your experience. Google Analytics and Google AdSense use cookies to serve relevant ads and measure engagement. Read our <Link to="/privacy" className="text-blue-600 font-semibold hover:underline">Privacy Policy</Link> for details on how we handle your data.
       </p>
       <div className="flex gap-3">
         <button onClick={handleAccept} className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors cursor-pointer text-center border border-transparent">
-          Accept
+          Accept All
         </button>
-        <button onClick={() => setVisible(false)} className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer text-center border border-slate-200">
+        <button onClick={handleDecline} className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer text-center border border-slate-200">
           Decline
         </button>
       </div>
