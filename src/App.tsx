@@ -48,10 +48,10 @@ function Hero() {
     <section className="pt-12 pb-8 px-8 relative overflow-hidden bg-slate-50">
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3 tracking-tight">
-          Days Between Dates Calculator — <span className="text-blue-600">How Many Days Between Two Dates?</span>
+          Days Between Dates Calculator — <span className="text-blue-600">Calculate Days Between Dates Instantly</span>
         </h1>
         <p className="text-sm md:text-base text-slate-500 mb-4 max-w-2xl mx-auto">
-          Free online day counter to find the exact number of days, business days, weeks, and months between any two dates. Count days until Christmas, New Year, your birthday, or any future deadline — instantly and accurately.
+          Free online days between dates calculator. Calculate how many days, business days, weeks, and months between any two dates. Find date differences, count days until events, or calculate how long ago a date was. Instant, accurate, and private.
         </p>
       </div>
     </section>
@@ -239,19 +239,19 @@ function Features() {
           <FeatureItem
             icon={<ShieldCheck size={24} />}
             title="Unmatched Accuracy"
-            desc="Our algorithms account for leap years, time zone shifts, and historic calendar changes."
+            desc="Calculate date differences with perfect precision. Our algorithms account for leap years, month variations, and edge cases automatically."
             colorClass="text-blue-600 bg-blue-50 border-blue-200"
           />
           <FeatureItem
             icon={<Briefcase size={24} />}
             title="Business Ready"
-            desc="Instantly exclude weekends and customizable public holidays from your duration calculations."
+            desc="Calculate business days instantly. Exclude weekends and customize public holidays from your time between dates calculations."
             colorClass="text-purple-600 bg-purple-50 border-purple-200"
           />
           <FeatureItem
             icon={<Zap size={24} />}
             title="Instant Results"
-            desc="Native performance ensures real-time updates as you type or pick dates. No loading states."
+            desc="Get date calculations in milliseconds. Real-time updates as you adjust dates. No loading delays, no server requests, no lag."
             colorClass="text-amber-600 bg-amber-50 border-amber-200"
           />
         </div>
@@ -560,10 +560,10 @@ function AboutUs() {
         <h3 className="text-xl font-bold text-slate-800 mb-4">HASH CODE TECHNOLOGIES & SOFTWARE SOLUTIONS</h3>
         <div className="space-y-4 text-slate-600 leading-relaxed">
           <p>
-            We are dedicated to building high-performance, accurate, and easy-to-use digital utility solutions like Day Counter Pro. Our mission is to simplify complex date and time calculations for users around the globe — whether you are planning a project, managing finances, or counting down to a special event.
+            We are dedicated to building high-performance, accurate, and easy-to-use digital utility solutions like Day Counter Pro. Our mission is to simplify complex date and time calculations for users around the globe — whether you are calculating the date difference between two dates, planning a project, managing finances, or counting down to a special event.
           </p>
           <p>
-            Day Counter Pro began with a simple frustration: working out the number of days between two dates by hand is slow and easy to get wrong. We set out to build a tool that gives an exact answer instantly, presents it clearly, and respects your privacy by doing all the work right inside your browser. Today the tool is used by project managers, freelancers, students, travelers, and anyone who needs a precise, dependable date duration in seconds.
+            Day Counter Pro began with a simple frustration: working out how many days between two dates by hand is slow and easy to get wrong. Whether you need to know how long ago something happened or how many days remaining until a deadline, we set out to build a tool that gives an exact answer instantly, presents it clearly, and respects your privacy by doing all the work right inside your browser. Today the date difference calculator is used by project managers, freelancers, students, travelers, accountants, and anyone who needs a precise, dependable days calculation in seconds.
           </p>
         </div>
       </div>
@@ -696,6 +696,42 @@ function FAQ() {
     {
       question: "Can I count how many weeks or months between two dates?",
       answer: "Yes. In addition to Total Days and Business Days, Day Counter Pro shows the number of weeks (total days divided by 7) and months (total days divided by the average Gregorian month of 30.44 days) between your two chosen dates."
+    },
+    {
+      question: "How do I find the date difference between two dates?",
+      answer: "Simply enter your start date and end date into Day Counter Pro, and it instantly calculates the date difference in days, business days, weeks, and months. The calculator updates in real-time as you adjust either date, showing you the exact date span."
+    },
+    {
+      question: "What does 'days remaining' or 'days left' mean?",
+      answer: "Days remaining (or days left) is the number of calendar days from today until a future date. For example, if your deadline is 45 days away, that's 45 days remaining. Set today as your start date and your deadline as the end date to see exactly how many days you have left."
+    },
+    {
+      question: "How long ago was a specific date?",
+      answer: "To find how long ago a date was, set it as your Start Date and today as your End Date. The total days result shows exactly how many days have passed since that date. This is useful for anniversaries, important milestones, or measuring elapsed time."
+    },
+    {
+      question: "Can I use this calculator to find the time between two dates in the past?",
+      answer: "Yes. You can calculate the duration between any two dates in the past, present, or future. The calculator doesn't care whether both dates are historical—it simply computes the time span between them using the exact Gregorian calendar rules."
+    },
+    {
+      question: "What is a 'days elapsed' calculator and how is it different?",
+      answer: "A days elapsed calculator shows how many days have passed since a starting point. It's the same as asking 'how long ago' — you set your start date in the past and today as the end date. Day Counter Pro works equally well for this use case as it does for counting days until a future event."
+    },
+    {
+      question: "How can I calculate the number of days in a date range?",
+      answer: "Enter the first date of your range as the Start Date and the last date of your range as the End Date. Day Counter Pro will show the total number of days in that date range, along with the business days (excluding weekends) and equivalent weeks or months."
+    },
+    {
+      question: "How do I use a date duration calculator for project planning?",
+      answer: "Project managers use a date duration calculator to measure the span between a project start and deadline. Enter the kickoff date and the target delivery date to see total days available, business days available for work, and the duration in weeks. This helps build realistic timelines and track milestones accurately."
+    },
+    {
+      question: "Can I calculate the timeline between two dates across different months and years?",
+      answer: "Absolutely. Day Counter Pro handles date calculations across any number of months and years instantly. Whether you're spanning 2 weeks, 6 months, or 5 years, the calculator accounts for all leap years, varying month lengths, and weekends automatically."
+    },
+    {
+      question: "What's the easiest way to find out how many days are left until a deadline?",
+      answer: "Click on the End Date field, select your deadline date, and keep the Start Date set to today. The Total Days result instantly shows how many days are left until that deadline. For even faster results, use the +30 Days preset if your deadline is 30 days away (perfect for Net 30 terms)."
     }
   ];
 
@@ -706,9 +742,9 @@ function FAQ() {
   return (
     <section className="py-16 px-8 bg-slate-50 border-t border-slate-200">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-slate-900 mb-2 text-center tracking-tight">Frequently Asked Questions</h2>
+        <h2 className="text-3xl font-bold text-slate-900 mb-2 text-center tracking-tight">Frequently Asked Questions - Date Calculator Help</h2>
         <p className="text-slate-500 text-center text-sm mb-10 max-w-xl mx-auto">
-          Get answers to common questions about calculating date durations, business days, and how we keep your calculations private.
+          Get answers to common questions about how to calculate date differences, days between dates, business days, elapsed time, and how we keep your calculations private and secure.
         </p>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
@@ -863,9 +899,9 @@ function PopularCountdowns() {
     <section className="py-16 px-8 bg-white border-t border-slate-200">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Popular countdowns — how many days until…</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">How many days until… — Popular countdown events</h2>
           <p className="text-slate-500 text-sm max-w-2xl mx-auto">
-            Quick answers to the most searched date countdowns. Live counts update automatically, or pick any custom event using the calculator above.
+            Quick answers to the most searched date countdowns. These countdown timers update live and show you how many days remain. Or pick any custom event using the calculator above to see how many days left until any future date.
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -911,9 +947,9 @@ function QuickReference() {
     <section className="py-16 px-8 bg-slate-50 border-t border-slate-200">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Quick reference: days in a year, month, and week</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Quick reference: how many days in a year, month, and week</h2>
           <p className="text-slate-500 text-sm max-w-2xl mx-auto">
-            Handy facts to sanity-check any date calculation at a glance.
+            Handy facts to sanity-check any date calculation at a glance. Use these to verify your date math and understand time spans.
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -936,37 +972,37 @@ function UseCases() {
       icon: <Briefcase size={20} />,
       color: "text-blue-600 bg-blue-50 border-blue-200",
       title: "Project & deadline planning",
-      desc: "Project managers count business days between a kickoff and a delivery date to build realistic schedules, track sprint lengths, and measure how many working days remain before a milestone.",
+      desc: "Project managers use a days between calculator to count business days between a kickoff and a delivery date. Measure how many working days remain before a milestone. Calculate the date span and build realistic schedules.",
     },
     {
       icon: <DollarSign size={20} />,
       color: "text-emerald-600 bg-emerald-50 border-emerald-200",
       title: "Finance & billing cycles",
-      desc: "Accountants and freelancers calculate invoice payment terms (Net 30, Net 60), interest accrual periods, and the exact number of days in a billing cycle to keep cash flow accurate.",
+      desc: "Accountants and freelancers calculate date differences for invoice payment terms (Net 30, Net 60), interest accrual periods, and billing cycles. Knowing the exact days remaining on a deadline keeps cash flow accurate.",
     },
     {
       icon: <Plane size={20} />,
       color: "text-purple-600 bg-purple-50 border-purple-200",
       title: "Travel & visa stays",
-      desc: "Travelers verify the length of a trip and confirm they stay within visa limits, such as the 90-days-in-180 rule, by counting the precise number of days between entry and exit dates.",
+      desc: "Travelers calculate the time between entry and exit dates to verify trip length and confirm they stay within visa limits (such as 90-days-in-180). A date difference calculator ensures visa compliance.",
     },
     {
       icon: <GraduationCap size={20} />,
       color: "text-amber-600 bg-amber-50 border-amber-200",
       title: "Education & exams",
-      desc: "Students build revision timetables by counting the days until an exam, and educators measure the length of terms, assignment windows, and academic calendars.",
+      desc: "Students use countdown timers to measure days remaining until exams and build revision timetables. Educators calculate the days elapsed in a term and track assignment windows and academic calendars.",
     },
     {
       icon: <Heart size={20} />,
       color: "text-rose-600 bg-rose-50 border-rose-200",
       title: "Events & milestones",
-      desc: "Count down to weddings, anniversaries, birthdays, and product launches, or look back to find out exactly how long ago a memorable date occurred.",
+      desc: "Count down to weddings, anniversaries, birthdays, and product launches to see how many days left. Or calculate how long ago a memorable event happened — useful for celebrating milestones.",
     },
     {
       icon: <Clock size={20} />,
       color: "text-cyan-600 bg-cyan-50 border-cyan-200",
       title: "Legal & contract terms",
-      desc: "Confirm notice periods, contract durations, warranty windows, and statutory deadlines where the exact day count carries real legal and financial weight.",
+      desc: "Calculate date durations for notice periods, contract terms, warranty windows, and statutory deadlines where the exact day count carries real legal and financial weight.",
     },
   ];
 
@@ -1002,36 +1038,36 @@ function Guide() {
         <div className="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wider mb-3">
           <BookOpen size={14} /> Guide
         </div>
-        <h2 className="text-3xl font-bold text-slate-900 mb-6 tracking-tight">How to calculate the number of days between two dates</h2>
+        <h2 className="text-3xl font-bold text-slate-900 mb-6 tracking-tight">How to calculate the date difference between two dates</h2>
 
         <div className="space-y-5 text-slate-600 text-base leading-relaxed">
           <p>
-            Working out how many days separate two dates is one of the most common everyday calculations — and one of the easiest to get wrong. Months have different lengths, leap years add a day every four years, and "counting on your fingers" across a calendar quickly breaks down once the span crosses several months. Day Counter Pro removes that friction by giving you an exact, instant answer.
+            Calculating the date difference between two dates is one of the most common everyday calculations — and one of the easiest to get wrong. Months have different lengths, leap years add a day every four years, and "counting on your fingers" across a calendar quickly breaks down once the time span crosses several months. Day Counter Pro removes that friction by giving you an exact, instant answer that works for any date range, whether you need to know how long ago something happened or how many days are left until a deadline.
           </p>
 
-          <h3 className="text-xl font-bold text-slate-900 pt-2">The manual method</h3>
+          <h3 className="text-xl font-bold text-slate-900 pt-2">The manual method (error-prone)</h3>
           <p>
-            To calculate the days between two dates by hand, you count the remaining days in the start month, add the full days of every month in between, and then add the day-of-month of the end date. For a span like <strong>March 15 to July 2</strong>, that means 16 days left in March, plus April (30), May (31) and June (30), plus 2 days in July — a total of 109 days. Miss a 31-day month or forget a leap day and the answer is off.
+            To calculate the time between two dates by hand, you count the remaining days in the start month, add the full days of every month in between, and then add the day-of-month of the end date. For a date span like <strong>March 15 to July 2</strong>, that means 16 days left in March, plus April (30), May (31) and June (30), plus 2 days in July — a total of 109 days. But miss a 31-day month or forget a leap day and the answer is wrong. This is why most people use a date difference calculator instead.
           </p>
 
-          <h3 className="text-xl font-bold text-slate-900 pt-2">The instant method</h3>
+          <h3 className="text-xl font-bold text-slate-900 pt-2">The instant method (Day Counter Pro)</h3>
           <p>
-            With Day Counter Pro you simply pick a <strong>start date</strong> and an <strong>end date</strong>. The result updates the moment you choose them — no button to press. You instantly see four figures: total calendar days, business days, weeks, and months. Use the presets (New Year, Christmas, +30 days) for one-click countdowns, or the Reset button to start again from today.
+            With Day Counter Pro you simply pick a <strong>start date</strong> and an <strong>end date</strong>. The result updates the moment you choose them — no button to press. You instantly see four figures: total calendar days, business days, weeks, and months. Use the presets (New Year, Christmas, +30 days) for one-click countdowns, or the Reset button to start a fresh calculation from today. This date calculator works for finding how many days ago an event happened, how long until a deadline, or the total days in any date range.
           </p>
 
-          <h3 className="text-xl font-bold text-slate-900 pt-2">Total days vs. business days</h3>
+          <h3 className="text-xl font-bold text-slate-900 pt-2">Understanding total days and business days</h3>
           <p>
-            <strong>Total days</strong> counts every calendar day, including weekends. <strong>Business days</strong> counts only Monday through Friday, which is what matters for project timelines, shipping estimates, and payment terms. The difference is significant: a 30-day span typically contains only about 22 business days, so using the wrong figure can throw a schedule off by more than a week.
+            <strong>Total days</strong> counts every calendar day elapsed, including weekends. <strong>Business days</strong> counts only Monday through Friday, which is what matters for project timelines, shipping estimates, and payment terms. The difference is significant: a 30-day date span typically contains only about 22 business days, so using the wrong figure can throw a schedule off by more than a week. Use total days for calendar planning, and business days for work-related deadlines.
           </p>
 
-          <h3 className="text-xl font-bold text-slate-900 pt-2">Weeks and months</h3>
+          <h3 className="text-xl font-bold text-slate-900 pt-2">Calculating weeks and months between dates</h3>
           <p>
-            Weeks are the total days divided by 7. Months are trickier because they vary in length, so the calculator uses the average Gregorian month of <strong>30.44 days</strong> — that is, 365.25 days divided by 12. This gives a far more accurate duration in months than assuming every month is 30 or 31 days long, which is why the figure may show a decimal.
+            Weeks are the total days divided by 7, so a 14-day span equals 2 weeks. Months are trickier because they vary in length, so the calculator uses the average Gregorian month of <strong>30.44 days</strong> — that is, 365.25 days divided by 12. This gives a far more accurate duration in months than assuming every month is 30 or 31 days long, which is why the figure may show a decimal. For precise business calculations, the total days and weeks figures are usually more reliable than approximate month counts.
           </p>
 
-          <h3 className="text-xl font-bold text-slate-900 pt-2">A note on accuracy</h3>
+          <h3 className="text-xl font-bold text-slate-900 pt-2">Accuracy and leap year handling</h3>
           <p>
-            All calculations follow the Gregorian calendar and automatically account for leap years. Because the math runs entirely in your browser, results are instant and your dates never leave your device. For most planning, billing, and countdown purposes this is exactly the precision you need.
+            All calculations follow the Gregorian calendar and automatically account for leap years. Because the math runs entirely in your browser, results are instant and your dates never leave your device. Our date timeline calculator handles edge cases like leap seconds and month boundaries correctly. For most planning, billing, and countdown purposes this is exactly the time duration precision you need.
           </p>
         </div>
       </article>
@@ -1041,10 +1077,12 @@ function Guide() {
 
 function Examples() {
   const examples = [
-    { from: "Jan 1, 2026", to: "Dec 31, 2026", total: "364 days", note: "A full non-leap calendar year, end-exclusive." },
-    { from: "Today", to: "New Year's Day", total: "varies", note: "One-click with the New Year preset for a live countdown." },
-    { from: "Mon, Jun 1", to: "Fri, Jun 26", total: "25 days / 20 business days", note: "Four working weeks — note how weekends are stripped out." },
-    { from: "Invoice date", to: "+30 days", total: "30 days", note: "Standard Net 30 payment term using the +30 Days preset." },
+    { from: "Jan 1, 2026", to: "Dec 31, 2026", total: "364 days", note: "A full non-leap calendar year. Shows the date span in days." },
+    { from: "Today", to: "New Year 2027", total: "varies", note: "Live countdown. One-click using the New Year preset." },
+    { from: "Mon, Jun 1", to: "Fri, Jun 26", total: "25 days / 20 business days", note: "Time span of four working weeks. Shows how weekends are excluded." },
+    { from: "Invoice date", to: "+30 days", total: "30 days", note: "Standard Net 30 payment term. Shows days remaining until due." },
+    { from: "Jan 1, 2020", to: "Today", total: "2,344+ days", note: "Elapsed time since a past date. Useful for anniversaries and milestones." },
+    { from: "Today", to: "Dec 25, 2026", total: "varies", note: "Calculate how many days until Christmas using the preset button." },
   ];
 
   return (
@@ -1053,9 +1091,9 @@ function Examples() {
         <div className="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wider mb-3 justify-center">
           <Lightbulb size={14} /> Worked examples
         </div>
-        <h2 className="text-3xl font-bold text-slate-900 mb-2 text-center tracking-tight">Common calculations at a glance</h2>
+        <h2 className="text-3xl font-bold text-slate-900 mb-2 text-center tracking-tight">Date difference calculator — common examples</h2>
         <p className="text-slate-500 text-center text-sm mb-10 max-w-xl mx-auto">
-          A few typical scenarios to show how total days, business days, and presets work together.
+          Real-world examples showing how to calculate days between dates, time remaining, and how long ago an event occurred. Each shows total days and business days.
         </p>
         <div className="overflow-hidden rounded-2xl border border-slate-200">
           <table className="w-full text-left text-sm">
@@ -1183,33 +1221,33 @@ function CookieBanner() {
 export const routes = [
   {
     path: '/',
-    title: 'Days Between Dates Calculator - How Many Days Between Two Dates | Day Counter Pro',
+    title: 'Days Between Dates Calculator - Calculate Date Difference | Day Counter Pro',
     description:
-      'Free days between dates calculator. Find out how many days, business days, weeks, and months between two dates. Count days until Christmas, New Year, birthdays, or any future date.',
+      'Free date difference calculator. Calculate how many days, business days, weeks, and months between two dates. Find time between dates, days remaining until events, or how long ago a date was. Instant, accurate, no sign-up required.',
   },
   {
     path: '/about',
-    title: 'About Day Counter Pro - The Team Behind the Date Calculator',
+    title: 'About Day Counter Pro - Date Duration Calculator by Hash Code Technologies',
     description:
-      'Learn about Hash Code Technologies & Software Solutions, the team behind Day Counter Pro — the free, accurate, privacy-first date duration calculator used worldwide.',
+      'Learn about Hash Code Technologies & Software Solutions, the team behind Day Counter Pro — the free, accurate, privacy-first date duration calculator used worldwide for calculating date differences and time spans.',
   },
   {
     path: '/privacy',
-    title: 'Privacy Policy - Day Counter Pro Date Calculator',
+    title: 'Privacy Policy - Day Counter Pro Date Difference Calculator',
     description:
-      'How Day Counter Pro handles your data, cookies, Google AdSense and Google Analytics, and your privacy choices under GDPR and CCPA. All calculations happen locally in your browser.',
+      'How Day Counter Pro handles your data and privacy. Your date calculations remain private and local in your browser. No data transmitted to servers. GDPR and CCPA compliant.',
   },
   {
     path: '/terms',
-    title: 'Terms of Service - Day Counter Pro',
+    title: 'Terms of Service - Day Counter Pro Date Calculator',
     description:
-      'The terms and conditions governing your use of Day Counter Pro — the free online days between dates calculator. Acceptable use, disclaimers, and limitations of liability.',
+      'The terms and conditions governing your use of Day Counter Pro — the free online calculator for finding date differences and counting days between any two dates.',
   },
   {
     path: '/contact',
-    title: 'Contact Day Counter Pro - Support, Feedback & Privacy Requests',
+    title: 'Contact Day Counter Pro - Date Calculator Support & Feedback',
     description:
-      'Get in touch with the Day Counter Pro team for support with the days between dates calculator, privacy requests, legal questions, or product feedback.',
+      'Get in touch with the Day Counter Pro team for support, feedback, or questions about our free date difference calculator and how to calculate days between dates.',
   },
 ];
 
