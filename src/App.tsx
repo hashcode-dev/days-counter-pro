@@ -1227,27 +1227,27 @@ export const routes = [
   },
   {
     path: '/about',
-    title: 'About Day Counter Pro - Date Duration Calculator by Hash Code Technologies',
+    title: 'About Day Counter Pro - Accurate Date Calculator by Hash Code Technologies',
     description:
-      'Learn about Hash Code Technologies & Software Solutions, the team behind Day Counter Pro — the free, accurate, privacy-first date duration calculator used worldwide for calculating date differences and time spans.',
+      'About Day Counter Pro: A free, accurate, privacy-first date duration calculator from Hash Code Technologies. Learn our mission to simplify date calculations worldwide with 100% original content and algorithms.',
   },
   {
     path: '/privacy',
-    title: 'Privacy Policy - Day Counter Pro Date Difference Calculator',
+    title: 'Privacy Policy - Day Counter Pro | How Your Data is Protected',
     description:
-      'How Day Counter Pro handles your data and privacy. Your date calculations remain private and local in your browser. No data transmitted to servers. GDPR and CCPA compliant.',
+      'Day Counter Pro Privacy Policy: Your date calculations stay private and local in your browser. No data transmitted to servers. Full GDPR and CCPA compliance. Learn how we protect your information.',
   },
   {
     path: '/terms',
-    title: 'Terms of Service - Day Counter Pro Date Calculator',
+    title: 'Terms of Service - Day Counter Pro | Legal Agreement',
     description:
-      'The terms and conditions governing your use of Day Counter Pro — the free online calculator for finding date differences and counting days between any two dates.',
+      'Terms of Service for Day Counter Pro: The complete legal agreement governing your use of our free online date calculator, including disclaimers, limitations, and your rights.',
   },
   {
     path: '/contact',
-    title: 'Contact Day Counter Pro - Date Calculator Support & Feedback',
+    title: 'Contact Us - Day Counter Pro Support & Feedback',
     description:
-      'Get in touch with the Day Counter Pro team for support, feedback, or questions about our free date difference calculator and how to calculate days between dates.',
+      'Contact Day Counter Pro for support, feature requests, privacy inquiries, or legal matters. Email hashcode.dev@gmail.com. Fast response to all inquiries.',
   },
 ];
 

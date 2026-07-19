@@ -31,6 +31,33 @@ for (const route of routes) {
     `<meta name="description" content="${route.description}" />`
   );
 
+  // Per-route OpenGraph tags
+  const canonicalUrl = route.path === '/' ? 'https://www.daycounterpro.com/' : `https://www.daycounterpro.com${route.path}`;
+  html = html.replace(
+    /<link rel="canonical"[\s\S]*?\/>/,
+    `<link rel="canonical" href="${canonicalUrl}" />`
+  );
+  html = html.replace(
+    /<meta property="og:title"[\s\S]*?\/>/,
+    `<meta property="og:title" content="${route.title}" />`
+  );
+  html = html.replace(
+    /<meta property="og:description"[\s\S]*?\/>/,
+    `<meta property="og:description" content="${route.description}" />`
+  );
+  html = html.replace(
+    /<meta property="og:url"[\s\S]*?\/>/,
+    `<meta property="og:url" content="${canonicalUrl}" />`
+  );
+  html = html.replace(
+    /<meta name="twitter:title"[\s\S]*?\/>/,
+    `<meta name="twitter:title" content="${route.title}" />`
+  );
+  html = html.replace(
+    /<meta name="twitter:description"[\s\S]*?\/>/,
+    `<meta name="twitter:description" content="${route.description}" />`
+  );
+
   const outDir = route.path === '/' ? dist : path.join(dist, route.path);
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'index.html'), html);
