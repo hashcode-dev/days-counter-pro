@@ -610,6 +610,10 @@ function AboutUs() {
 }
 
 function Footer() {
+  const handleOpenCookieSettings = () => {
+    window.dispatchEvent(new Event('open-cookie-settings'));
+  };
+
   return (
     <footer className="w-full py-8 bg-white border-t border-slate-200 shrink-0">
       <div className="px-8 max-w-6xl mx-auto">
@@ -626,6 +630,7 @@ function Footer() {
             <Link to="/privacy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-slate-900 transition-colors">Terms of Service</Link>
             <Link to="/contact" className="hover:text-slate-900 transition-colors">Contact Us</Link>
+            <button onClick={handleOpenCookieSettings} className="hover:text-slate-900 transition-colors cursor-pointer text-slate-500">Cookie Preferences</button>
           </div>
         </div>
         <div className="border-t border-slate-100 pt-6 text-center text-xs text-slate-500">
@@ -1171,6 +1176,17 @@ function NotFound() {
   );
 }
 
+function updateGoogleConsent(granted: boolean) {
+  if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+    (window as any).gtag('consent', 'update', {
+      'ad_storage': granted ? 'granted' : 'denied',
+      'ad_user_data': granted ? 'granted' : 'denied',
+      'ad_personalization': granted ? 'granted' : 'denied',
+      'analytics_storage': granted ? 'granted' : 'denied'
+    });
+  }
+}
+
 function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
@@ -1178,38 +1194,49 @@ function CookieBanner() {
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
       setVisible(true);
+    } else {
+      updateGoogleConsent(consent === 'granted' || consent === 'accepted');
     }
+
+    const handleOpenSettings = () => setVisible(true);
+    window.addEventListener('open-cookie-settings', handleOpenSettings);
+    return () => window.removeEventListener('open-cookie-settings', handleOpenSettings);
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('cookie-consent', 'accepted');
+    localStorage.setItem('cookie-consent', 'granted');
+    updateGoogleConsent(true);
     setVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem('cookie-consent', 'declined');
+    localStorage.setItem('cookie-consent', 'denied');
+    updateGoogleConsent(false);
     setVisible(false);
   };
 
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-lg rounded-2xl p-5 z-50 animate-fade-in-up">
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-xl rounded-2xl p-5 z-50 animate-fade-in-up">
       <div className="flex justify-between items-start gap-3 mb-3">
-        <h3 className="text-sm font-bold text-slate-900">Cookie Settings</h3>
+        <div>
+          <h3 className="text-sm font-bold text-slate-900">Cookie & Privacy Settings</h3>
+          <p className="text-[11px] text-slate-400 font-medium">Google Consent Mode v2 Compliant</p>
+        </div>
         <button onClick={() => setVisible(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer" aria-label="Close">
           <X size={16} />
         </button>
       </div>
       <p className="text-xs text-slate-600 leading-relaxed mb-4">
-        We use cookies to personalize content and ads, analyze our traffic, and improve your experience. Google Analytics and Google AdSense use cookies to serve relevant ads and measure engagement. Read our <Link to="/privacy" className="text-blue-600 font-semibold hover:underline">Privacy Policy</Link> for details on how we handle your data.
+        We use cookies and Google Consent Mode v2 to personalize content and ads, measure traffic, and protect your privacy. Google Analytics and Google AdSense require your consent to store cookies for personalized ads and measurement. Read our <Link to="/privacy" className="text-blue-600 font-semibold hover:underline">Privacy Policy</Link> for details.
       </p>
       <div className="flex gap-3">
-        <button onClick={handleAccept} className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors cursor-pointer text-center border border-transparent">
+        <button onClick={handleAccept} className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors cursor-pointer text-center border border-transparent shadow-sm">
           Accept All
         </button>
         <button onClick={handleDecline} className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer text-center border border-slate-200">
-          Decline
+          Decline Optional
         </button>
       </div>
     </div>
