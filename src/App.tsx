@@ -2,7 +2,13 @@ import { useState, useEffect, type ReactNode } from 'react';
 import { Calendar, CalendarDays, Clock, ShieldCheck, Briefcase, Zap, AlertCircle, Mail, Copy, Check, Shield, Scale, HelpCircle, MessageSquare, BookOpen, Globe, Lightbulb, TrendingUp, Plane, GraduationCap, Heart, DollarSign, Gift, PartyPopper, Ghost, Sparkles, Sun, Egg, Cake, X } from 'lucide-react';
 import { Routes, Route, Link } from 'react-router-dom';
 
-function AdUnit({ slotId }: { slotId: string }) {
+function AdUnit({ slotId }: { slotId?: string }) {
+  // Guard against dummy/placeholder slot IDs during site approval phase.
+  // Auto Ads (configured in index.html head) will handle ad placements automatically.
+  if (!slotId || slotId === "9876543210" || slotId === "1234567890" || slotId === "5555555555" || slotId.includes("dummy")) {
+    return null;
+  }
+
   useEffect(() => {
     try {
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
@@ -1134,26 +1140,11 @@ function Home() {
       <DayCalculator />
       <PopularCountdowns />
       <Features />
-      <section className="py-8 px-8 bg-white border-t border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <AdUnit slotId="9876543210" />
-        </div>
-      </section>
       <UseCases />
       <QuickReference />
       <Guide />
-      <section className="py-8 px-8 bg-white border-t border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <AdUnit slotId="1234567890" />
-        </div>
-      </section>
       <Examples />
       <FAQ />
-      <section className="py-8 px-8 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <AdUnit slotId="5555555555" />
-        </div>
-      </section>
     </div>
   );
 }
