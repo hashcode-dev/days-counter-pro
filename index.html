@@ -5,9 +5,9 @@
   <!-- Google Consent Mode v2 Initialization (Default Consent State) -->
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
 
-    (function() {
+    (function () {
       var consent = localStorage.getItem('cookie-consent');
       if (consent === 'granted' || consent === 'accepted') {
         gtag('consent', 'default', {
@@ -41,9 +41,6 @@
     gtag('js', new Date());
     gtag('config', 'G-17QM0F758G');
   </script>
-
-  <!-- Google AdSense & Google Certified CMP (Privacy & Messaging) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7780773897047696" crossorigin="anonymous"></script>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
