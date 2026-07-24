@@ -2,7 +2,13 @@ import { useState, useEffect, type ReactNode } from 'react';
 import { Calendar, CalendarDays, Clock, ShieldCheck, Briefcase, Zap, AlertCircle, Mail, Copy, Check, Shield, Scale, HelpCircle, MessageSquare, BookOpen, Globe, Lightbulb, TrendingUp, Plane, GraduationCap, Heart, DollarSign, Gift, PartyPopper, Ghost, Sparkles, Sun, Egg, Cake, X } from 'lucide-react';
 import { Routes, Route, Link } from 'react-router-dom';
 
-function AdUnit({ slotId }: { slotId: string }) {
+function AdUnit({ slotId }: { slotId?: string }) {
+  // Guard against dummy/placeholder slot IDs during site approval phase.
+  // Auto Ads (configured in index.html head) will handle ad placements automatically.
+  if (!slotId || slotId === "9876543210" || slotId === "1234567890" || slotId === "5555555555" || slotId.includes("dummy")) {
+    return null;
+  }
+
   useEffect(() => {
     try {
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
@@ -24,6 +30,15 @@ function AdUnit({ slotId }: { slotId: string }) {
 }
 
 function Header() {
+  const scrollToSection = (id: string) => {
+    if (typeof window !== 'undefined') {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0 sticky top-0 z-50">
       <Link to="/" className="flex items-center space-x-3 cursor-pointer">
@@ -32,11 +47,13 @@ function Header() {
         </div>
         <span className="text-xl font-bold text-slate-900 tracking-tight">Day Counter Pro</span>
       </Link>
-      <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
+      <div className="hidden md:flex items-center space-x-6 text-sm font-medium">
         <Link to="/" className="text-slate-600 hover:text-slate-900 transition-colors">Home</Link>
+        <a href="/#calculator" onClick={(e) => { if (typeof window !== 'undefined' && window.location.pathname === '/') { e.preventDefault(); scrollToSection('calculator'); } }} className="text-slate-600 hover:text-slate-900 transition-colors">Calculator</a>
+        <a href="/#countdowns" onClick={(e) => { if (typeof window !== 'undefined' && window.location.pathname === '/') { e.preventDefault(); scrollToSection('countdowns'); } }} className="text-slate-600 hover:text-slate-900 transition-colors">Countdowns</a>
+        <a href="/#guide" onClick={(e) => { if (typeof window !== 'undefined' && window.location.pathname === '/') { e.preventDefault(); scrollToSection('guide'); } }} className="text-slate-600 hover:text-slate-900 transition-colors">Guide</a>
+        <a href="/#faq" onClick={(e) => { if (typeof window !== 'undefined' && window.location.pathname === '/') { e.preventDefault(); scrollToSection('faq'); } }} className="text-slate-600 hover:text-slate-900 transition-colors">FAQ</a>
         <Link to="/about" className="text-slate-600 hover:text-slate-900 transition-colors">About Us</Link>
-        <Link to="/privacy" className="text-slate-600 hover:text-slate-900 transition-colors">Privacy Policy</Link>
-        <Link to="/terms" className="text-slate-600 hover:text-slate-900 transition-colors">Terms of Service</Link>
         <Link to="/contact" className="text-slate-600 hover:text-slate-900 transition-colors">Contact Us</Link>
       </div>
     </header>
@@ -72,6 +89,8 @@ function ResultBox({ label, value, colorClass }: { label: string, value: string 
 function DayCalculator() {
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [inclusive, setInclusive] = useState(false);
+  const [copiedResults, setCopiedResults] = useState(false);
   const [results, setResults] = useState({ total: 0, business: 0, weeks: '0.0', months: '0.0' });
 
   useEffect(() => {
@@ -92,13 +111,17 @@ function DayCalculator() {
 
   useEffect(() => {
     if (!start || !end) return;
-    const startDate = new Date(start + 'T00:00:00'); // Force local interpretation
+    const startDate = new Date(start + 'T00:00:00');
     const endDate = new Date(end + 'T00:00:00');
 
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return;
 
     const diffTime = endDate.getTime() - startDate.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (inclusive && diffDays >= 0) {
+      diffDays += 1;
+    }
 
     const total = Math.max(0, diffDays);
 
@@ -117,7 +140,7 @@ function DayCalculator() {
       weeks: (total / 7).toFixed(1),
       months: (total / 30.44).toFixed(1)
     });
-  }, [start, end]);
+  }, [start, end, inclusive]);
 
   const setPreset = (preset: string) => {
     const today = new Date();
@@ -153,6 +176,14 @@ function DayCalculator() {
     const todayStr = formatYMD(today);
     setStart(todayStr);
     setEnd(todayStr);
+    setInclusive(false);
+  };
+
+  const handleCopyResults = () => {
+    const text = `Day Counter Pro Result:\nFrom: ${start} to ${end}\nTotal Days: ${results.total} days\nBusiness Days: ${results.business} days\nWeeks: ${results.weeks} weeks\nMonths: ${results.months} months`;
+    navigator.clipboard.writeText(text);
+    setCopiedResults(true);
+    setTimeout(() => setCopiedResults(false), 2000);
   };
 
   const presetStyle = "px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg text-xs font-semibold transition-colors border border-slate-200 cursor-pointer";
@@ -186,14 +217,36 @@ function DayCalculator() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 mb-5 relative z-10">
-            <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mr-2">Presets:</span>
-            <button onClick={() => setPreset('newyear')} className={presetStyle}>New Year</button>
-            <button onClick={() => setPreset('christmas')} className={presetStyle}>Christmas</button>
-            <button onClick={() => setPreset('+30days')} className={presetStyle}>+30 Days</button>
-            <button onClick={handleReset} className="px-3 py-1.5 bg-slate-100 text-slate-900 border border-slate-300 hover:bg-slate-200 rounded-lg text-xs font-semibold md:ml-auto transition-colors cursor-pointer">
-              Reset
-            </button>
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-5 relative z-10 pb-4 border-b border-slate-100">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mr-1">Presets:</span>
+              <button onClick={() => setPreset('newyear')} className={presetStyle}>New Year</button>
+              <button onClick={() => setPreset('christmas')} className={presetStyle}>Christmas</button>
+              <button onClick={() => setPreset('+30days')} className={presetStyle}>+30 Days</button>
+              <button onClick={handleReset} className="px-3 py-1.5 bg-slate-100 text-slate-900 border border-slate-300 hover:bg-slate-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer">
+                Reset
+              </button>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <label className="flex items-center gap-2 text-xs font-medium text-slate-600 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={inclusive}
+                  onChange={(e) => setInclusive(e.target.checked)}
+                  className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 cursor-pointer"
+                />
+                <span>Include End Date (+1 day)</span>
+              </label>
+
+              <button
+                onClick={handleCopyResults}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+              >
+                {copiedResults ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
+                <span>{copiedResults ? 'Copied!' : 'Copy Summary'}</span>
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-5 relative z-10">
@@ -203,15 +256,18 @@ function DayCalculator() {
             <ResultBox label="Months" value={results.months} colorClass="text-slate-900" />
           </div>
 
-          <div className="relative pt-4 relative z-10">
+          <div className="relative pt-2 relative z-10">
             <div className="flex justify-between text-[10px] font-medium text-slate-500 mb-1.5">
-              <span>{start ? new Date(start + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'Start'}</span>
-              <span>{results.total} Days</span>
-              <span>{end ? new Date(end + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'End'}</span>
+              <span>{start ? new Date(start + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'Start'}</span>
+              <span>{results.total} Days {inclusive ? '(Inclusive)' : '(Elapsed)'}</span>
+              <span>{end ? new Date(end + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'End'}</span>
             </div>
-            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden flex items-center">
+            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden flex items-center mb-3">
               <div className="h-full bg-blue-500 transition-all duration-700 ease-out w-full" />
             </div>
+            <p className="text-[11px] text-slate-400 text-center italic">
+              Disclaimer: Calculations follow standard Gregorian calendar rules. Verify critical legal, tax, or official deadlines independently.
+            </p>
           </div>
         </div>
       </div>
@@ -393,6 +449,8 @@ function TermsOfService() {
 
 function ContactUs() {
   const [copied, setCopied] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', subject: 'General Support', message: '' });
   const email = "hashcode.dev@gmail.com";
 
   const handleCopy = () => {
@@ -401,12 +459,18 @@ function ContactUs() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    setSubmitted(true);
+  };
+
   return (
     <div className="py-16 px-6 max-w-4xl mx-auto flex-grow w-full">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Contact Us</h2>
         <p className="text-slate-500 max-w-xl mx-auto text-sm md:text-base">
-          Have questions, feedback, or need support? Connect with our team directly.
+          Have questions, feedback, or need support? Connect with our team directly via our contact form or email.
         </p>
       </div>
 
@@ -415,11 +479,11 @@ function ContactUs() {
         <div className="md:col-span-3 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-3 relative z-10 text-center md:text-left">
             <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md">
-              <Mail size={12} /> Contact Email
+              <Mail size={12} /> Direct Support Email
             </div>
             <h3 className="text-2xl font-bold">Connect With Us</h3>
             <p className="text-blue-100 text-sm max-w-md">
-              If you need to connect with us, click the email address below to open your email client or copy it to your clipboard.
+              Reach out to Hash Code Technologies & Software Solutions directly via email or submit a support request using the form below.
             </p>
           </div>
           
@@ -450,79 +514,110 @@ function ContactUs() {
           </div>
         </div>
 
-        {/* Reach Right Team */}
-        <div className="md:col-span-2 space-y-6">
-          <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-            <Zap size={18} className="text-blue-600 animate-pulse" />
-            How to Reach the Right Team Faster
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-3.5">
-                <HelpCircle size={20} />
-              </div>
-              <h4 className="font-bold text-slate-800 text-sm mb-1.5 font-sans">General Support</h4>
-              <p className="text-slate-500 text-xs leading-relaxed">
-                Questions about calculator usage or result exports.
-              </p>
-            </div>
-            
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-3.5">
-                <Shield size={20} />
-              </div>
-              <h4 className="font-bold text-slate-800 text-sm mb-1.5 font-sans">Privacy Requests</h4>
-              <p className="text-slate-500 text-xs leading-relaxed">
-                Data/privacy rights, policy questions, and related concerns.
-              </p>
-            </div>
+        {/* Interactive Contact Form */}
+        <div className="md:col-span-2 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+          <h3 className="text-xl font-bold text-slate-900 mb-2">Send Us a Message</h3>
+          <p className="text-slate-500 text-xs mb-6">Fill out the form below and our support team will respond within 24–48 hours.</p>
 
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 mb-3.5">
-                <Scale size={20} />
+          {submitted ? (
+            <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-2">
+              <div className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                <Check size={20} />
               </div>
-              <h4 className="font-bold text-slate-800 text-sm mb-1.5 font-sans">Legal Requests</h4>
-              <p className="text-slate-500 text-xs leading-relaxed">
-                Terms, policy clarifications, or compliance-related communications.
-              </p>
+              <h4 className="font-bold text-emerald-900 text-base">Message Sent Successfully</h4>
+              <p className="text-emerald-700 text-xs">Thank you for reaching out. We have received your inquiry and will reply to {formData.email} shortly.</p>
+              <button 
+                onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', subject: 'General Support', message: '' }); }}
+                className="mt-3 px-4 py-2 bg-white text-emerald-700 font-semibold rounded-xl text-xs border border-emerald-300 hover:bg-emerald-100 transition-colors"
+              >
+                Send Another Message
+              </button>
             </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Your Name *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="John Doe"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Email Address *</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900"
+                  />
+                </div>
+              </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 mb-3.5">
-                <MessageSquare size={20} />
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Inquiry Category</label>
+                <select
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900"
+                >
+                  <option value="General Support">General Support / Calculator Inquiry</option>
+                  <option value="Privacy Request">Privacy & Consent Request (GDPR / CCPA)</option>
+                  <option value="Legal & Terms">Legal / Terms Inquiry</option>
+                  <option value="Product Feedback">Feature Request / Usability Feedback</option>
+                </select>
               </div>
-              <h4 className="font-bold text-slate-800 text-sm mb-1.5 font-sans">Product Feedback</h4>
-              <p className="text-slate-500 text-xs leading-relaxed">
-                Suggestions for features, improvements, and usability enhancements.
-              </p>
-            </div>
-          </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Your Message *</label>
+                <textarea
+                  required
+                  rows={4}
+                  placeholder="How can we assist you?"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-colors shadow-sm cursor-pointer"
+              >
+                Send Message
+              </button>
+            </form>
+          )}
         </div>
 
-        {/* What to Include */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        {/* Sidebar Info */}
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-slate-900">
-              What to Include in Your Email
-            </h3>
-            <p className="text-slate-500 text-xs leading-relaxed">
-              To help us address your request as efficiently as possible, please try to include:
-            </p>
-            <ul className="space-y-3.5">
-              {[
-                "Clear subject line (for example: Support, Privacy, Legal, or Feedback).",
-                "Short description of your request.",
-                "Relevant context such as device/browser details for technical issues.",
-                "Any timeline requirements if your request is time-sensitive."
-              ].map((item, i) => (
-                <li key={i} className="flex gap-2.5 items-start">
-                  <div className="w-4 h-4 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0 mt-0.5">
-                    <Check size={10} strokeWidth={3} />
-                  </div>
-                  <span className="text-xs text-slate-650 leading-relaxed font-sans">{item}</span>
-                </li>
-              ))}
-            </ul>
+            <h3 className="text-base font-bold text-slate-900">Publisher Information</h3>
+            <div className="space-y-3 text-xs text-slate-600">
+              <div>
+                <p className="font-semibold text-slate-800">Entity</p>
+                <p>Hash Code Technologies & Software Solutions</p>
+              </div>
+              <div>
+                <p className="font-semibold text-slate-800">Registered Office</p>
+                <p>62/46A/5C Nawab Yusuf Road<br />Prayagraj, UP 211001, India</p>
+              </div>
+              <div>
+                <p className="font-semibold text-slate-800">Direct Email</p>
+                <p className="text-blue-600 font-semibold">hashcode.dev@gmail.com</p>
+              </div>
+              <div>
+                <p className="font-semibold text-slate-800">Support Availability</p>
+                <p>Monday – Friday, 9 AM – 6 PM IST</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -610,6 +705,10 @@ function AboutUs() {
 }
 
 function Footer() {
+  const handleOpenCookieSettings = () => {
+    window.dispatchEvent(new Event('open-cookie-settings'));
+  };
+
   return (
     <footer className="w-full py-8 bg-white border-t border-slate-200 shrink-0">
       <div className="px-8 max-w-6xl mx-auto">
@@ -626,6 +725,7 @@ function Footer() {
             <Link to="/privacy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-slate-900 transition-colors">Terms of Service</Link>
             <Link to="/contact" className="hover:text-slate-900 transition-colors">Contact Us</Link>
+            <button onClick={handleOpenCookieSettings} className="hover:text-slate-900 transition-colors cursor-pointer text-slate-500">Cookie Preferences</button>
           </div>
         </div>
         <div className="border-t border-slate-100 pt-6 text-center text-xs text-slate-500">
@@ -740,7 +840,7 @@ function FAQ() {
   };
 
   return (
-    <section className="py-16 px-8 bg-slate-50 border-t border-slate-200">
+    <section id="faq" className="py-16 px-8 bg-slate-50 border-t border-slate-200">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold text-slate-900 mb-2 text-center tracking-tight">Frequently Asked Questions - Date Calculator Help</h2>
         <p className="text-slate-500 text-center text-sm mb-10 max-w-xl mx-auto">
@@ -896,7 +996,7 @@ function PopularCountdowns() {
   };
 
   return (
-    <section className="py-16 px-8 bg-white border-t border-slate-200">
+    <section id="countdowns" className="py-16 px-8 bg-white border-t border-slate-200">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">How many days until… — Popular countdown events</h2>
@@ -1033,7 +1133,7 @@ function UseCases() {
 
 function Guide() {
   return (
-    <section className="py-16 px-8 bg-slate-50 border-t border-slate-200">
+    <section id="guide" className="py-16 px-8 bg-slate-50 border-t border-slate-200">
       <article className="max-w-3xl mx-auto">
         <div className="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wider mb-3">
           <BookOpen size={14} /> Guide
@@ -1129,26 +1229,11 @@ function Home() {
       <DayCalculator />
       <PopularCountdowns />
       <Features />
-      <section className="py-8 px-8 bg-white border-t border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <AdUnit slotId="9876543210" />
-        </div>
-      </section>
       <UseCases />
       <QuickReference />
       <Guide />
-      <section className="py-8 px-8 bg-white border-t border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <AdUnit slotId="1234567890" />
-        </div>
-      </section>
       <Examples />
       <FAQ />
-      <section className="py-8 px-8 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <AdUnit slotId="5555555555" />
-        </div>
-      </section>
     </div>
   );
 }
@@ -1171,6 +1256,17 @@ function NotFound() {
   );
 }
 
+function updateGoogleConsent(granted: boolean) {
+  if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+    (window as any).gtag('consent', 'update', {
+      'ad_storage': granted ? 'granted' : 'denied',
+      'ad_user_data': granted ? 'granted' : 'denied',
+      'ad_personalization': granted ? 'granted' : 'denied',
+      'analytics_storage': granted ? 'granted' : 'denied'
+    });
+  }
+}
+
 function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
@@ -1178,38 +1274,49 @@ function CookieBanner() {
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
       setVisible(true);
+    } else {
+      updateGoogleConsent(consent === 'granted' || consent === 'accepted');
     }
+
+    const handleOpenSettings = () => setVisible(true);
+    window.addEventListener('open-cookie-settings', handleOpenSettings);
+    return () => window.removeEventListener('open-cookie-settings', handleOpenSettings);
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('cookie-consent', 'accepted');
+    localStorage.setItem('cookie-consent', 'granted');
+    updateGoogleConsent(true);
     setVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem('cookie-consent', 'declined');
+    localStorage.setItem('cookie-consent', 'denied');
+    updateGoogleConsent(false);
     setVisible(false);
   };
 
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-lg rounded-2xl p-5 z-50 animate-fade-in-up">
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-xl rounded-2xl p-5 z-50 animate-fade-in-up">
       <div className="flex justify-between items-start gap-3 mb-3">
-        <h3 className="text-sm font-bold text-slate-900">Cookie Settings</h3>
+        <div>
+          <h3 className="text-sm font-bold text-slate-900">Cookie & Privacy Settings</h3>
+          <p className="text-[11px] text-slate-400 font-medium">Google Consent Mode v2 Compliant</p>
+        </div>
         <button onClick={() => setVisible(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer" aria-label="Close">
           <X size={16} />
         </button>
       </div>
       <p className="text-xs text-slate-600 leading-relaxed mb-4">
-        We use cookies to personalize content and ads, analyze our traffic, and improve your experience. Google Analytics and Google AdSense use cookies to serve relevant ads and measure engagement. Read our <Link to="/privacy" className="text-blue-600 font-semibold hover:underline">Privacy Policy</Link> for details on how we handle your data.
+        We use cookies and Google Consent Mode v2 to personalize content and ads, measure traffic, and protect your privacy. Google Analytics and Google AdSense require your consent to store cookies for personalized ads and measurement. Read our <Link to="/privacy" className="text-blue-600 font-semibold hover:underline">Privacy Policy</Link> for details.
       </p>
       <div className="flex gap-3">
-        <button onClick={handleAccept} className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors cursor-pointer text-center border border-transparent">
+        <button onClick={handleAccept} className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors cursor-pointer text-center border border-transparent shadow-sm">
           Accept All
         </button>
         <button onClick={handleDecline} className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer text-center border border-slate-200">
-          Decline
+          Decline Optional
         </button>
       </div>
     </div>
